@@ -1,5 +1,9 @@
 {
   "name": "project-astrolog",
+  "author": {
+    "name": "Bruno V Vergatti",
+    "email": "bruno.vergatti@gmail.com"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
