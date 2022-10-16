@@ -28,6 +28,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "no-unused-vars": [1],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
