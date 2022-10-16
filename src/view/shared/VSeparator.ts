@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 const DEFAULT_SEPARATION = "1rem";
 
-export interface IVSeparatorProps {
+export interface IPropsVSeparator {
   height?: string;
 }
 
 export const VSeparator = styled.div`
   height: 0.1px;
-  margin: ${(props: IVSeparatorProps) =>
+  margin: ${(props: IPropsVSeparator) =>
     `${props.height || DEFAULT_SEPARATION} 0;`};
 `;
 
