@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
+import { ENDPOINTS, API_KEY, getFullApiUrl } from "../../core/api/endpoints";
 import VSeparator from "../shared/VSeparator";
-import { WrapperSearchControls, WrapperInput } from "./styles";
+import { WrapperSearchControls, WrapperInput, WrapperResults } from "./styles";
 
 interface SearchInterval {
   initialDate?: string;
@@ -9,6 +10,7 @@ interface SearchInterval {
 
 function NearEarthWatcher() {
   const [searchInterval, setSearchInterval] = useState<SearchInterval>();
+  const [searchResults, setSearchResults] = useState();
 
   const handleInputChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = { ...event };
@@ -23,8 +25,24 @@ function NearEarthWatcher() {
 
   const handleClicked = (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log("clicked search =]");
-    console.log("searchInterval", searchInterval);
+    fetchData(searchInterval || {});
+  };
+
+  const fetchData = async (interval: SearchInterval) => {
+    const url = getFullApiUrl(ENDPOINTS.LIST);
+
+    url.searchParams.append("start_date", interval?.initialDate || "");
+    url.searchParams.append("end_date", interval?.finalDate || "");
+    url.searchParams.append("api_key", API_KEY || "");
+
+    const response = (await fetch(url)) as Response;
+
+    if (!response.ok) {
+      throw new Error("[exception] bad outcome =[");
+    }
+
+    const data = await response.json();
+    setSearchResults(data);
   };
 
   return (
@@ -33,24 +51,22 @@ function NearEarthWatcher() {
       <VSeparator height=".5rem" />
       <WrapperSearchControls>
         <WrapperInput>
-          <label htmlFor="initialDateInput">Initial Date</label>
+          <label htmlFor="initialDate">Initial Date</label>
           <input
             type="text"
             placeholder="Input the initial date"
-            name="initialDateInput"
-            id="initialDateInput"
-            value={searchInterval?.initialDate}
+            name="initialDate"
+            id="initialDate"
             onChange={handleInputChanged}
           />
         </WrapperInput>
         <WrapperInput>
-          <label htmlFor="finalDateInput">Final Date</label>
+          <label htmlFor="finalDate">Final Date</label>
           <input
             type="text"
             placeholder="Input the final date"
-            name="finalDateInput"
-            id="finalDateInput"
-            value={searchInterval?.finalDate}
+            name="finalDate"
+            id="finalDate"
             onChange={handleInputChanged}
           />
         </WrapperInput>
@@ -58,7 +74,8 @@ function NearEarthWatcher() {
           search
         </button>
       </WrapperSearchControls>
-      <VSeparator height="2rem" />
+      <VSeparator />
+      <WrapperResults>{JSON.stringify(searchResults)}</WrapperResults>
     </>
   );
 }

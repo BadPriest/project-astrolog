@@ -16,3 +16,10 @@ export const WrapperInput = styled.div`
     margin-bottom: 0.5rem;
   }
 `;
+
+export const WrapperResults = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4rem;
+`;

@@ -27,6 +27,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "no-unused-vars": [1],
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
@@ -41,6 +42,14 @@
       {
         "assert": "either"
         // rule details at -> https://bityl.co/F63E
+      }
+    ],
+    "no-use-before-define": [
+      2,
+      {
+        "functions": false,
+        "variables": false,
+        "allowNamedExports": true
       }
     ]
   }
