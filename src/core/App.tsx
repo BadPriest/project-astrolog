@@ -1,6 +1,6 @@
 import React from "react";
 import NearEarthWatcher from "../view/NearEarthWatcher";
-import VSeparator from "../view/shared/VSeparator";
+import VSeparator from "../view/shared/components/VSeparator";
 
 function App() {
   return (
