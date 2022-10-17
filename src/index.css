@@ -50,3 +50,8 @@ html {
     font-size: 1.5em;
   }
 }
+
+body {
+  color: #c8c8c8;
+  background: #222;
+}

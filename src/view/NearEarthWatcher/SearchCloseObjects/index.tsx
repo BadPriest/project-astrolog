@@ -2,13 +2,12 @@ import React, { SyntheticEvent, useState } from "react";
 import { ENDPOINTS } from "../../../core/api/endpoints";
 import { makeURL } from "../../../core/api/utils";
 import VSeparator from "../../shared/components/VSeparator";
-import {
+import normalizeDataSet, {
   MappedDataAlias,
-  normalizeDataSet as normalizeSearchDataSet,
-} from "./normalizeNearEarthObjects";
+} from "../dataNormalizers/normalizeNearEarthObjects";
 import normalizeSearchMetadata, {
   ISearchMetadata,
-} from "./normalizeSearchMetadata";
+} from "../dataNormalizers/normalizeSearchMetadata";
 
 import { WrapperInput, SearchForm, WrapperMetadata } from "./styles";
 
@@ -69,7 +68,7 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
     const normalizedMetadata = normalizeSearchMetadata(rawData, searchInterval);
     setSearchMetadata(normalizedMetadata);
 
-    const normalizedSearchDataSet = normalizeSearchDataSet(rawData);
+    const normalizedSearchDataSet = normalizeDataSet(rawData);
     setResults(normalizedSearchDataSet);
   };
 
@@ -156,7 +155,7 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
           <p>
             Found {searchMetadata?.nearObjectsCount} entries for the given
             period{" "}
-            {`${searchMetadata?.interval.initialDate} ~ ${searchMetadata?.interval.finalDate}`}
+            {`${searchMetadata?.dateIntervalUsed.initialDate} ~ ${searchMetadata?.dateIntervalUsed.finalDate}`}
           </p>
         </WrapperMetadata>
       )}

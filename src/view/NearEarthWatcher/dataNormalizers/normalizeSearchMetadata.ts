@@ -1,8 +1,8 @@
-import { ISearchInterval } from ".";
+import { ISearchInterval } from "../SearchCloseObjects";
 
 export interface ISearchMetadata {
   nearObjectsCount: number;
-  interval: ISearchInterval;
+  dateIntervalUsed: ISearchInterval;
 }
 
 export const normalizeSearchMetadata = (
@@ -10,7 +10,7 @@ export const normalizeSearchMetadata = (
   usedSearchInterval: ISearchInterval
 ): ISearchMetadata => ({
   nearObjectsCount: rawData.element_count,
-  interval: usedSearchInterval,
+  dateIntervalUsed: usedSearchInterval,
 });
 
 export default normalizeSearchMetadata;
