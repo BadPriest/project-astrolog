@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const WrapperResults = styled.div`
+export const StyledWrapperResults = styled.div`
   padding: 0 4em;
 `;
 
-export const DayCategory = styled.div``;
+export const StyledDayCategory = styled.div``;
 
-export const DayLabel = styled.h3`
+export const StyledDayLabel = styled.h3`
   position: relative;
   z-index: 300;
 
@@ -39,7 +39,7 @@ export const DayLabel = styled.h3`
   }
 `;
 
-export const Entry = styled.article`
+export const StyledEntry = styled.article`
   margin: 0.4rem;
   padding: 1rem;
   background-color: ${(props) =>
@@ -58,4 +58,4 @@ export const Entry = styled.article`
   }
 `;
 
-export default WrapperResults;
+export default StyledWrapperResults;

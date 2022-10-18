@@ -1,7 +1,7 @@
 import React from "react";
 import { INearEarthObject } from "../../shared/interfaces/models/nearEarthObject";
 import { MappedDataAlias } from "../dataNormalizers/normalizeNearEarthObjects";
-import WrapperResults, { DayCategory, DayLabel, Entry } from "./styles";
+import StyledWrapperResults, { StyledDayCategory, StyledDayLabel, StyledEntry } from "./styles";
 
 export interface IPropsListCloseObjects {
   dataSet: MappedDataAlias | undefined;
@@ -19,10 +19,10 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
       const entries: INearEarthObject[] = dataSet[key];
 
       return (
-        <DayCategory key={key}>
-          <DayLabel>{key}</DayLabel>
+        <StyledDayCategory key={key}>
+          <StyledDayLabel>{key}</StyledDayLabel>
           {entries.map((e: INearEarthObject) => (
-            <Entry key={e.id}>
+            <StyledEntry key={e.id}>
               {`
                 ${e.name}, 
                 absoluteMagnitudeH: ${e.absoluteMagnitudeH}
@@ -36,14 +36,14 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
                 min: ${e.estimatedDiameter.kilometers.estimatedDiameterMin}
                 max: ${e.estimatedDiameter.kilometers.estimatedDiameterMax}
               `}
-            </Entry>
+            </StyledEntry>
           ))}
-        </DayCategory>
+        </StyledDayCategory>
       );
     });
   };
 
-  return <WrapperResults>{renderList()}</WrapperResults>;
+  return <StyledWrapperResults>{renderList()}</StyledWrapperResults>;
 }
 
 export default ListCloseObjects;

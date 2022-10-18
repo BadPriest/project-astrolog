@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export const SearchForm = styled.form`
+export const StyledSearchForm = styled.form`
   display: flex;
   justify-content: center;
   align-items: end;
   gap: 2rem;
 `;
 
-export const WrapperInput = styled.div`
+export const StyledWrapperInput = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -17,7 +17,7 @@ export const WrapperInput = styled.div`
   }
 `;
 
-export const WrapperMetadata = styled.aside`
+export const StyledWrapperMetadata = styled.aside`
   display: flex;
   justify-content: center;
   align-items: end;

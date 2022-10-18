@@ -9,7 +9,7 @@ import normalizeSearchMetadata, {
   ISearchMetadata,
 } from "../dataNormalizers/normalizeSearchMetadata";
 
-import { WrapperInput, SearchForm, WrapperMetadata } from "./styles";
+import { StyledWrapperInput, StyledSearchForm, StyledWrapperMetadata } from "./styles";
 
 export interface ISearchInterval {
   initialDate?: string;
@@ -116,8 +116,8 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
 
   return (
     <>
-      <SearchForm>
-        <WrapperInput>
+      <StyledSearchForm>
+        <StyledWrapperInput>
           <label htmlFor="initialDate">Initial Date</label>
           <input
             type="text"
@@ -128,8 +128,8 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
             onChange={handleInputChanged}
             disabled={state === STATE.LOADING}
           />
-        </WrapperInput>
-        <WrapperInput>
+        </StyledWrapperInput>
+        <StyledWrapperInput>
           <label htmlFor="finalDate">Final Date</label>
           <input
             type="text"
@@ -140,7 +140,7 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
             onChange={handleInputChanged}
             disabled={state === STATE.LOADING}
           />
-        </WrapperInput>
+        </StyledWrapperInput>
         <button
           type="submit"
           onClick={handleClicked}
@@ -149,15 +149,15 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
           search
         </button>
         <VSeparator />
-      </SearchForm>
+      </StyledSearchForm>
       {state === STATE.HAS_DATA && (
-        <WrapperMetadata>
+        <StyledWrapperMetadata>
           <p>
             Found {searchMetadata?.nearObjectsCount} entries for the given
             period{" "}
             {`${searchMetadata?.dateIntervalUsed.initialDate} ~ ${searchMetadata?.dateIntervalUsed.finalDate}`}
           </p>
-        </WrapperMetadata>
+        </StyledWrapperMetadata>
       )}
     </>
   );
