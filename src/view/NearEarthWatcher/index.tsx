@@ -5,13 +5,14 @@ import SearchCloseObjects from "./SearchCloseObjects";
 
 import { MappedDataAlias } from "./dataNormalizers/normalizeNearEarthObjects";
 import ListCloseObjects from "./ListCloseObjects";
+import Title from "./styles";
 
 function NearEarthWatcher() {
   const [searchResults, setSearchResults] = useState<MappedDataAlias>();
 
   return (
     <>
-      <h2>Near Earth Watcher</h2>
+      <Title>Near Earth Watcher</Title>
       <VSeparator height=".5rem" />
       <SearchCloseObjects setResults={setSearchResults} />
       <VSeparator />

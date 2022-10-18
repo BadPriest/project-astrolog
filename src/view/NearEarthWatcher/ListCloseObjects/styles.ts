@@ -14,7 +14,7 @@ export const DayLabel = styled.h3`
     content: " ";
     display: block;
     position: absolute;
-    background-color: #222;
+    background-color: ${(props) => props.theme.colors.background};
 
     height: 0.8rem;
     width: 10rem;
@@ -28,8 +28,7 @@ export const DayLabel = styled.h3`
     content: " ";
     display: block;
     position: absolute;
-    background-color: #ee3928;
-
+    background-color: ${(props) => props.theme.colors.accent};
     height: 0.8rem;
     width: 100vw;
 
@@ -43,13 +42,19 @@ export const DayLabel = styled.h3`
 export const Entry = styled.article`
   margin: 0.4rem;
   padding: 1rem;
-  background-color: #555;
+  background-color: ${(props) =>
+    props.theme.colors.interactiveElements.surface};
+
   transition: 0.2s ease-in;
 
   &:hover {
-    background-color: #aaa;
-    transition: 0.2s ease-out;
     transform: scale(1.01);
+    color: ${(props) => props.theme.colors.interactiveElements.textActive};
+    background-color: ${(props) =>
+      props.theme.colors.interactiveElements.surfaceActive};
+    transition: ${(props) =>
+        props.theme.animations.surface.activationTransition}
+      ease-out;
   }
 `;
 

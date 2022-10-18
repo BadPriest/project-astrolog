@@ -1,15 +1,17 @@
 import React from "react";
+import { ThemeProvider } from "styled-components";
 import NearEarthWatcher from "../view/NearEarthWatcher";
-import VSeparator from "../view/shared/components/VSeparator";
+import { Theme } from "./theme";
+import ViewTemplate from "./ViewTemplate";
 
 function App() {
   return (
     <div>
-      <header>
-        <h1>Project Astrolog | be excellent.</h1>
-      </header>
-      <NearEarthWatcher />
-      <VSeparator height="5rem" />
+      <ThemeProvider theme={Theme}>
+        <ViewTemplate>
+          <NearEarthWatcher />
+        </ViewTemplate>
+      </ThemeProvider>
     </div>
   );
 }

@@ -23,7 +23,7 @@ const typography = {
     bold: 600,
   },
   headings: {
-    fontFamily: "share_tech_monoregular",
+    fontFamily: "bebas_neueregular",
     h1: { fontSize: "3rem", fontWeight: "800" },
     h2: { fontSize: "2rem", fontWeight: "800" },
     h3: { fontSize: "1.5rem", fontWeight: "800" },
@@ -31,7 +31,13 @@ const typography = {
     display: { fontSize: "4.5rem", fontWeight: "800" },
   },
   body: {
-    fontFamily: "bebas_neueregular",
+    fontFamily: "barlowlight",
+    small: { fontSize: "0.8rem" },
+    regular: { fontSize: "1rem" },
+    large: { fontSize: "1.1rem" },
+  },
+  special: {
+    fontFamily: "share_tech_monoregular",
     small: { fontSize: "0.8rem" },
     regular: { fontSize: "1rem" },
     large: { fontSize: "1.1rem" },
