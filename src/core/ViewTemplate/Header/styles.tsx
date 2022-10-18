@@ -2,10 +2,11 @@ import styled from "styled-components";
 import Text from "../../../view/shared/components/Text";
 
 export const StyledHeaderWrapper = styled.header`
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
   background-color: ${(props) =>
     props.theme.colors.interactiveElements.surfaceActive};
 
+  max-height: 3.5rem;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-areas: "title info";
