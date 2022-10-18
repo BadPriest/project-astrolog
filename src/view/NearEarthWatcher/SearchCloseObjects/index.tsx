@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import { ENDPOINTS } from "../../../core/api/endpoints";
 import { makeURL } from "../../../core/api/utils";
+import { Button } from "../../shared/components/Button";
 import InputDate from "../../shared/components/InputDate";
 import VSeparator from "../../shared/components/VSeparator";
 import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
@@ -149,13 +150,13 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
             disabled={state === STATE.LOADING}
           />
         </StyledWrapperInput>
-        <button
+        <Button
           type="submit"
           onClick={handleClicked}
           disabled={shouldDisableButton}
         >
           search
-        </button>
+        </Button>
         <VSeparator />
       </StyledSearchForm>
       {state === STATE.HAS_DATA && (
