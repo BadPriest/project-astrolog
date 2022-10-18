@@ -10,6 +10,14 @@
 }
 
 @font-face {
+  font-family: "barlowlight";
+  src: url("./assets/fonts/barlow-light-webfont.woff2") format("woff2"),
+    url("./assets/fonts/barlow-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "share_tech_monoregular";
   src: url("./assets/fonts/sharetechmono-regular-webfont.woff2") format("woff2"),
     url("./assets/fonts/sharetechmono-regular-webfont.woff") format("woff");
