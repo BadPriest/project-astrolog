@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import { ENDPOINTS } from "../../../core/api/endpoints";
 import { makeURL } from "../../../core/api/utils";
+import InputDate from "../../shared/components/InputDate";
 import VSeparator from "../../shared/components/VSeparator";
 import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 import normalizeDataSet, {
@@ -127,26 +128,24 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
     <>
       <StyledSearchForm>
         <StyledWrapperInput>
-          <label htmlFor="initialDate">Initial Date</label>
-          <input
-            type="text"
-            placeholder="Input the initial date"
+          <InputDate
+            label="Initial Date"
+            placeholder="Input initial date"
             name="initialDate"
             id="initialDate"
             value={searchInterval?.initialDate}
-            onChange={handleInputChanged}
+            onChanged={handleInputChanged}
             disabled={state === STATE.LOADING}
           />
         </StyledWrapperInput>
         <StyledWrapperInput>
-          <label htmlFor="finalDate">Final Date</label>
-          <input
-            type="text"
-            placeholder="Input the final date"
+          <InputDate
+            label="Final Date"
+            placeholder="Input final date"
             name="finalDate"
             id="finalDate"
             value={searchInterval?.finalDate}
-            onChange={handleInputChanged}
+            onChanged={handleInputChanged}
             disabled={state === STATE.LOADING}
           />
         </StyledWrapperInput>
