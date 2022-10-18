@@ -69,7 +69,7 @@ const normalizeDataItem = (rawData: unknown): INearEarthObject => {
   return normalizedItem;
 };
 
-export const normalizeDataSet = (rawData: unknown): any => {
+export const normalizeDataSet = (rawData: unknown): MappedDataAlias => {
   const data = (rawData as IResponseSearchFeed).near_earth_objects;
 
   if (!data) {

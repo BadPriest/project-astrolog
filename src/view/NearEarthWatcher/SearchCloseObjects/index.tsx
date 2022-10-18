@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useState } from "react";
 import { ENDPOINTS } from "../../../core/api/endpoints";
 import { makeURL } from "../../../core/api/utils";
 import VSeparator from "../../shared/components/VSeparator";
+import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 import normalizeDataSet, {
   MappedDataAlias,
 } from "../dataNormalizers/normalizeNearEarthObjects";
@@ -9,7 +10,11 @@ import normalizeSearchMetadata, {
   ISearchMetadata,
 } from "../dataNormalizers/normalizeSearchMetadata";
 
-import { StyledWrapperInput, StyledSearchForm, StyledWrapperMetadata } from "./styles";
+import {
+  StyledWrapperInput,
+  StyledSearchForm,
+  StyledWrapperMetadata,
+} from "./styles";
 
 export interface ISearchInterval {
   initialDate?: string;
@@ -60,11 +65,11 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
 
     if (rawData) {
       setState(STATE.HAS_DATA);
-      processData(rawData);
+      processData(rawData as IResponseSearchFeed);
     }
   };
 
-  const processData = (rawData: any) => {
+  const processData = (rawData: IResponseSearchFeed) => {
     const normalizedMetadata = normalizeSearchMetadata(rawData, searchInterval);
     setSearchMetadata(normalizedMetadata);
 
@@ -72,7 +77,9 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
     setResults(normalizedSearchDataSet);
   };
 
-  const fetchData = async (interval: ISearchInterval) => {
+  const fetchData = async (
+    interval: ISearchInterval
+  ): Promise<IResponseSearchFeed> => {
     setState(STATE.LOADING);
 
     const url = makeURL({
@@ -93,7 +100,9 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
     return response.json();
   };
 
-  const fakeFetchData = async (interval: ISearchInterval) => {
+  const fakeFetchData = async (
+    interval: ISearchInterval
+  ): Promise<IResponseSearchFeed> => {
     setState(STATE.LOADING);
 
     setTimeout(() => ({}), 1000);

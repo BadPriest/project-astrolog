@@ -1,3 +1,4 @@
+import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 import { ISearchInterval } from "../SearchCloseObjects";
 
 export interface ISearchMetadata {
@@ -6,7 +7,7 @@ export interface ISearchMetadata {
 }
 
 export const normalizeSearchMetadata = (
-  rawData: any,
+  rawData: IResponseSearchFeed,
   usedSearchInterval: ISearchInterval
 ): ISearchMetadata => ({
   nearObjectsCount: rawData.element_count,

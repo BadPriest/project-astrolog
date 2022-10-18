@@ -53,27 +53,14 @@ const animations = {
 export const Theme = { colors, typography, animations, common };
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState({
+  const [theme] = useState({
     colors,
     typography,
     animations,
+    common,
   });
 
-  const changeTheme = (newTheme: any) => {
-    setTheme({ typography, ...newTheme });
-  };
-
-  const newTheme = (props: any) => {
-    setTheme({
-      colors,
-      typography,
-      animations,
-      common,
-      ...props,
-    });
-  };
-
-  return { theme, changeTheme, newTheme };
+  return { theme };
 };
 
 export default useTheme;

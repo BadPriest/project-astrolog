@@ -1,3 +1,6 @@
+// I'm very against this, but in the interest of brevity... 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /** This one doesn't seem to belong here. */
 export interface IResponseSearchFeed {
   links: any;
