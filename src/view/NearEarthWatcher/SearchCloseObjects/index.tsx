@@ -60,11 +60,22 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
     setSearchInterval(newState);
   };
 
-  const handleClicked = async (event: SyntheticEvent) => {
+  const handleClickedFake = async (event: SyntheticEvent) => {
     event.preventDefault();
 
     // const rawData = await fetchData(searchInterval || {});
     const rawData = await fakeFetchData(searchInterval || {});
+
+    if (rawData) {
+      setState(STATE.HAS_DATA);
+      processData(rawData as IResponseSearchFeed);
+    }
+  };
+
+  const handleClicked = async (event: SyntheticEvent) => {
+    event.preventDefault();
+
+    const rawData = await fetchData(searchInterval || {});
 
     if (rawData) {
       setState(STATE.HAS_DATA);
@@ -153,10 +164,17 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
         </StyledWrapperInput>
         <Button
           type="submit"
+          onClick={handleClickedFake}
+          disabled={shouldDisableButton}
+        >
+          search (local)
+        </Button>
+        <Button
+          type="submit"
           onClick={handleClicked}
           disabled={shouldDisableButton}
         >
-          search
+          search (API)
         </Button>
         <VSeparator />
       </StyledSearchForm>
@@ -164,8 +182,9 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
         <StyledWrapperMetadata>
           <Text>
             Found {searchMetadata?.nearObjectsCount} entries for the given
-            period: {"  "}
-            [{`${searchMetadata?.dateIntervalUsed.initialDate} ~ ${searchMetadata?.dateIntervalUsed.finalDate}`}]
+            period: {"  "}[
+            {`${searchMetadata?.dateIntervalUsed.initialDate} ~ ${searchMetadata?.dateIntervalUsed.finalDate}`}
+            ]
           </Text>
         </StyledWrapperMetadata>
       )}
