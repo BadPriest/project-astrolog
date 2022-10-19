@@ -28,26 +28,26 @@ export const Button = styled(ResetButton)`
   text-transform: uppercase;
   padding: 1.2em 2em;
 
-  color: ${({ theme }) => theme.colors.interactiveElements.text};
-  background-color: ${({ theme }) => theme.colors.interactiveElements.surface};
+  color: ${({ theme }) => theme.colors.interactive.text};
+  background-color: ${({ theme }) => theme.colors.interactive.surface};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.interactiveElements.textActive};
+    color: ${({ theme }) => theme.colors.interactive.textActive};
     background-color: ${({ theme }) =>
-      theme.colors.interactiveElements.surfaceActive};
+      theme.colors.interactive.surfaceActive};
   }
 `;
 
 export const ButtonText = styled.span`
   display: block;
   position: relative;
-  background-color: ${({ theme }) => theme.colors.interactiveElements.surface};
+  background-color: ${({ theme }) => theme.colors.interactive.surface};
   z-index: 1;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.interactiveElements.textActive};
+    color: ${({ theme }) => theme.colors.interactive.textActive};
     background-color: ${({ theme }) =>
-      theme.colors.interactiveElements.surfaceActive};
+      theme.colors.interactive.surfaceActive};
   }
 `;
 

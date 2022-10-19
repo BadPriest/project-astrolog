@@ -17,7 +17,6 @@ function Footer() {
           rel="noreferrer noopener"
         >
           <b>Bruno Vinicius Vergatti, 2022</b>
-          {/* <Icons icon={["fab", "linkedin"]} padLeft size="lg" /> */}
         </StyledLink>
       </StyledInfo>
     </StyledFooter>

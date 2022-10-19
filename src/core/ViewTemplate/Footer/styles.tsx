@@ -2,7 +2,8 @@ import styled from "styled-components";
 import Text from "../../../view/shared/components/Text";
 
 export const StyledFooter = styled.footer`
-  background-color: ${({ theme }) => theme.colors.mutedBackground};
+  background-color: ${({ theme }) => theme.colors.muted.surface};
+  color: ${({ theme }) => theme.colors.muted.text};
   display: flex;
   flex-direction: column;
   justify-content: center;

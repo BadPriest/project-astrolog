@@ -11,13 +11,13 @@ export const BaseInput = styled.input`
   border: none;
 
   color: ${({ theme }) => theme.colors.text};
-  background-color: ${({ theme }) => theme.colors.interactiveElements.surface};
+  background-color: ${({ theme }) => theme.colors.interactive.surface};
   transition: 0.2s ease-in;
 
   &:focus {
-    color: ${({ theme }) => theme.colors.interactiveElements.textActive};
+    color: ${({ theme }) => theme.colors.interactive.textActive};
     background-color: ${({ theme }) =>
-      theme.colors.interactiveElements.surfaceActive};
+      theme.colors.interactive.surfaceActive};
     transition: 0.2s ease-in;
 
     outline: none;

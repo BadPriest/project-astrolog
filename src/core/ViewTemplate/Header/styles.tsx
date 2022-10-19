@@ -4,7 +4,7 @@ import Text from "../../../view/shared/components/Text";
 export const StyledHeaderWrapper = styled.header`
   margin-top: 0.5rem;
   background-color: ${(props) =>
-    props.theme.colors.interactiveElements.surfaceActive};
+    props.theme.colors.interactive.surfaceActive};
 
   max-height: 3.5rem;
   display: grid;
@@ -13,7 +13,7 @@ export const StyledHeaderWrapper = styled.header`
 `;
 
 export const StyledHeaderTitle = styled.h2`
-  color: ${(props) => props.theme.colors.interactiveElements.textActive};
+  color: ${(props) => props.theme.colors.interactive.textActive};
   font-family: ${(props) => props.theme.typography.special.fontFamily};
   font-weight: ${(props) => props.theme.typography.headings.fontWeight};
 
@@ -22,7 +22,7 @@ export const StyledHeaderTitle = styled.h2`
 `;
 
 export const StyledHeaderInfo = styled(Text)`
-  color: ${(props) => props.theme.colors.interactiveElements.textActive};
+  color: ${(props) => props.theme.colors.interactive.textActive};
   font-family: ${(props) => props.theme.typography.special.fontFamily};
   font-weight: ${(props) => props.theme.typography.headings.fontWeight};
 
