@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
 export const StyledWrapperResults = styled.div`
-  padding: 0 4em;
+  padding: 0 5rem;
 `;
 
 export const StyledDayCategory = styled.div``;
 
 export const StyledDayLabel = styled.h3`
+  display: block;
   position: relative;
-  z-index: 300;
+  padding-left: 1.8rem;
+
+  font-family: ${({ theme }) => theme.typography.special.fontFamily};
+  font-size: ${({ theme }) => theme.typography.headings.h3.fontSize};
+
+  z-index: 0;
 
   &::before {
     content: " ";
@@ -17,10 +23,10 @@ export const StyledDayLabel = styled.h3`
     background-color: ${(props) => props.theme.colors.background};
 
     height: 0.8rem;
-    width: 10rem;
+    width: 10.5rem;
 
     top: 25%;
-    left: -16px;
+    left: 0.5rem;
     z-index: -1;
   }
 
@@ -30,9 +36,10 @@ export const StyledDayLabel = styled.h3`
     position: absolute;
     background-color: ${(props) => props.theme.colors.accent};
     height: 0.8rem;
-    width: 100vw;
+    width: calc(100% + 4rem);
 
-    /* margin-top: -1.5%; */
+    overflow: hidden;
+
     top: 25%;
     left: -3%;
     z-index: -2;
@@ -40,18 +47,24 @@ export const StyledDayLabel = styled.h3`
 `;
 
 export const StyledEntry = styled.article`
-  margin: 0.4rem;
-  padding: 1rem;
-  background-color: ${(props) =>
-    props.theme.colors.interactiveElements.surface};
+  margin: 0.4rem 0;
+  padding: 0 2rem;
+
+  max-height: 5.5rem;
+  min-width: 60rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  background-color: ${(props) => props.theme.colors.interactive.surface};
 
   transition: 0.2s ease-in;
 
   &:hover {
     transform: scale(1.01);
-    color: ${(props) => props.theme.colors.interactiveElements.textActive};
+    color: ${(props) => props.theme.colors.interactive.textActive};
     background-color: ${(props) =>
-      props.theme.colors.interactiveElements.surfaceActive};
+      props.theme.colors.interactive.surfaceActive};
     transition: ${(props) =>
         props.theme.animations.surface.activationTransition}
       ease-out;

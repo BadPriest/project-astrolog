@@ -3,6 +3,7 @@ import { ENDPOINTS } from "../../../core/api/endpoints";
 import { makeURL } from "../../../core/api/utils";
 import { Button } from "../../shared/components/Button";
 import InputDate from "../../shared/components/InputDate";
+import Text from "../../shared/components/Text";
 import VSeparator from "../../shared/components/VSeparator";
 import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 import normalizeDataSet, {
@@ -161,11 +162,11 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
       </StyledSearchForm>
       {state === STATE.HAS_DATA && (
         <StyledWrapperMetadata>
-          <p>
+          <Text>
             Found {searchMetadata?.nearObjectsCount} entries for the given
-            period{" "}
-            {`${searchMetadata?.dateIntervalUsed.initialDate} ~ ${searchMetadata?.dateIntervalUsed.finalDate}`}
-          </p>
+            period: {"  "}
+            [{`${searchMetadata?.dateIntervalUsed.initialDate} ~ ${searchMetadata?.dateIntervalUsed.finalDate}`}]
+          </Text>
         </StyledWrapperMetadata>
       )}
     </>

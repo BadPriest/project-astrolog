@@ -1,7 +1,13 @@
 import React from "react";
+import Text from "../../shared/components/Text";
 import { INearEarthObject } from "../../shared/interfaces/models/nearEarthObject";
 import { MappedDataAlias } from "../dataNormalizers/normalizeNearEarthObjects";
-import StyledWrapperResults, { StyledDayCategory, StyledDayLabel, StyledEntry } from "./styles";
+
+import StyledWrapperResults, {
+  StyledDayCategory,
+  StyledDayLabel,
+  StyledEntry,
+} from "./styles";
 
 export interface IPropsListCloseObjects {
   dataSet: MappedDataAlias | undefined;
@@ -23,19 +29,16 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
           <StyledDayLabel>{key}</StyledDayLabel>
           {entries.map((e: INearEarthObject) => (
             <StyledEntry key={e.id}>
-              {`
-                ${e.name}, 
-                absoluteMagnitudeH: ${e.absoluteMagnitudeH}
-                ${
-                  e.isPotentiallyHazardousAsteroid
-                    ? ", Potentially Hazardous, "
-                    : ""
-                }
-                ${e.isSentryObject ? ", Sentry Object" : ""},
-                estimatedDiameter (KM): 
-                min: ${e.estimatedDiameter.kilometers.estimatedDiameterMin}
-                max: ${e.estimatedDiameter.kilometers.estimatedDiameterMax}
-              `}
+              <Text>
+                Name: {e.name}
+                {e.isPotentiallyHazardousAsteroid && ", [Potentially Hazardous]"}
+                {e.isSentryObject && " [Sentry Object]"}
+              </Text>
+              <Text>
+                Estimated Diameter (KM) - min:{" "}
+                {e.estimatedDiameter.kilometers.estimatedDiameterMin}, max:{" "}
+                {e.estimatedDiameter.kilometers.estimatedDiameterMax}S
+              </Text>
             </StyledEntry>
           ))}
         </StyledDayCategory>
