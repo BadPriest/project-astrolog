@@ -68,8 +68,8 @@ Things deemeed either too effortful or unnecessary for the current purposes.
 - When there's already items on the list, making a new search does not switch states gracefully before replacing the content
 - Change convention on folder naming to PascalCase, instead of camelCase (will be more consistent)
 - Use named files instead of `index.tsx`?
-
-  <br/>
+- Responsiveness is not 100% - layout and styles are not as well. 
+<br/>
 
 ---
 
