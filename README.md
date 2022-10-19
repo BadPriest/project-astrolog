@@ -15,7 +15,6 @@ This represents roughly and effectively 8 ~ 12h of work on research, exploration
 - [Features](#features)
 - [Future Work](#future-work)
 - [Nice to haves](#nice-to-haves)
-- [Future Work](#future-work)
 - [What's not planned](#whats-not-planned)
 - [Known issues](#known-issues)
 - [Project Structure](#project-structure)
