@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import { css } from "styled-components";
 
-export const BaseInput = styled.input`
+export const BaseInputCSS = css`
   display: block;
 
   font-family: ${(props) => props.theme.typography.special.fontFamily};
@@ -16,12 +16,21 @@ export const BaseInput = styled.input`
 
   &:focus {
     color: ${({ theme }) => theme.colors.interactive.textActive};
-    background-color: ${({ theme }) =>
-      theme.colors.interactive.surfaceActive};
+    background-color: ${({ theme }) => theme.colors.interactive.surfaceActive};
     transition: 0.2s ease-in;
 
     outline: none;
   }
+
+  &::placeholder {
+    @media screen and (max-width: 40em) {
+      font-size: ${({ theme }) => theme.typography.body.regular.fontSize};
+    }
+
+    @media screen and (min-width: 200em) {
+      font-size: ${({ theme }) => theme.typography.body.small.fontSize};
+    }
+  }
 `;
 
-export default BaseInput;
+export default BaseInputCSS;

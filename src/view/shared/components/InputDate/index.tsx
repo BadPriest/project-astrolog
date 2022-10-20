@@ -1,6 +1,9 @@
 import React, { ReactNode } from "react";
+
 import Label from "../FormControlLabel";
-import StyledInputDate from "./styles";
+import { ddMMyyyyInputMask } from "./constants";
+
+import StyledMaskedInputDate from "./styles";
 
 export interface IPropsInput {
   id: string;
@@ -12,19 +15,15 @@ export interface IPropsInput {
   disabled: boolean;
 }
 
-function InputDate({
-  id,
-  name,
-  label,
-  placeholder,
-  onChanged,
-  value,
-  disabled,
-}: IPropsInput) {
+function InputDate(props: IPropsInput) {
+  const { id, name, label, placeholder, onChanged, value, disabled } = props;
+
   return (
     <>
       <Label htmlFor={id}>{label}</Label>
-      <StyledInputDate
+      <StyledMaskedInputDate
+        mask={[...ddMMyyyyInputMask]}
+        guide
         type="text"
         id={id}
         name={name}

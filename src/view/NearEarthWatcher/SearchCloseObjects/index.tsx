@@ -20,13 +20,13 @@ import {
 } from "./styles";
 
 export interface ISearchInterval {
-  initialDate?: string;
-  finalDate?: string;
+  initialDate: string;
+  finalDate: string;
 }
 
 const initialSearchIntervalState = {
-  initialDate: "1900-01-01",
-  finalDate: "1900-01-05",
+  initialDate: "01011900",
+  finalDate: "01051900",
 } as ISearchInterval;
 
 enum STATE {
@@ -63,7 +63,6 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
   const handleClickedFake = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    // const rawData = await fetchData(searchInterval || {});
     const rawData = await fakeFetchData(searchInterval || {});
 
     if (rawData) {
@@ -170,7 +169,7 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
           search (local)
         </Button>
         <Button
-          type="submit"
+          type="button"
           onClick={handleClicked}
           disabled={shouldDisableButton}
         >
