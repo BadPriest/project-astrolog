@@ -1,10 +1,12 @@
 import React, { SyntheticEvent, useState } from "react";
 import { ENDPOINTS } from "../../../core/api/endpoints";
 import { makeURL } from "../../../core/api/utils";
-import { Button } from "../../shared/components/Button";
+
+import Button from "../../shared/components/Button";
 import InputDate from "../../shared/components/InputDate";
 import Text from "../../shared/components/Text";
 import VSeparator from "../../shared/components/VSeparator";
+
 import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 import normalizeDataSet, {
   MappedDataAlias,
@@ -12,6 +14,8 @@ import normalizeDataSet, {
 import normalizeSearchMetadata, {
   ISearchMetadata,
 } from "../dataNormalizers/normalizeSearchMetadata";
+
+import DATE_INPUT_MIN_LENGTH from "./constants";
 
 import {
   StyledWrapperInput,
@@ -26,7 +30,7 @@ export interface ISearchInterval {
 
 const initialSearchIntervalState = {
   initialDate: "01011900",
-  finalDate: "01051900",
+  finalDate: "01081900",
 } as ISearchInterval;
 
 enum STATE {
@@ -148,6 +152,7 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
             value={searchInterval?.initialDate}
             onChanged={handleInputChanged}
             disabled={state === STATE.LOADING}
+            minLength={DATE_INPUT_MIN_LENGTH}
           />
         </StyledWrapperInput>
         <StyledWrapperInput>
@@ -159,6 +164,7 @@ function SearchCloseObjects(props: IPropsSearchCloseObjects) {
             value={searchInterval?.finalDate}
             onChanged={handleInputChanged}
             disabled={state === STATE.LOADING}
+            minLength={DATE_INPUT_MIN_LENGTH}
           />
         </StyledWrapperInput>
         <Button

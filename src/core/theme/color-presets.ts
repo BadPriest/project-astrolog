@@ -37,7 +37,7 @@ export const main: colorPreset = {
   accent: "#FFDC94",
   success: "",
   warning: "",
-  danger: "",
+  danger: "#ff3a5e",
 };
 
 export default main;
