@@ -1,5 +1,5 @@
 import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
-import { ISearchInputForm } from "../SearchNearEarthObjects/constants";
+import { ISearchInputForm } from "../../shared/interfaces/models/searchInputForm";
 
 export interface ISearchMetadata {
   nearObjectsCount: number;

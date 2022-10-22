@@ -46,7 +46,7 @@ function InputDate(props: IPropsInput) {
     );
 
     const newInputData = {
-      event,
+      event: { ...event },
       inputStatus: {
         name,
         value: {
