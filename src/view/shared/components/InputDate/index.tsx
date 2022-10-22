@@ -6,8 +6,11 @@ import DateValidator from "../../validators/dateValidator";
 import Label from "../FormControlLabel";
 import Text from "../Text";
 import { ddMMyyyyInputMask } from "./constants";
-
-import StyledMaskedInputDate, { StyledErrorWrapper } from "./styles";
+import {
+  StyledWrapper,
+  StyledMaskedInputDate,
+  StyledErrorWrapper,
+} from "./styles";
 
 export interface IPropsInput {
   id: string;
@@ -61,7 +64,7 @@ function InputDate(props: IPropsInput) {
   };
 
   return (
-    <>
+    <StyledWrapper>
       <Label htmlFor={id}>{label}</Label>
       <StyledMaskedInputDate
         mask={ddMMyyyyInputMask}
@@ -82,7 +85,7 @@ function InputDate(props: IPropsInput) {
           ))}
         </StyledErrorWrapper>
       )}
-    </>
+    </StyledWrapper>
   );
 }
 
