@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../shared/components/Button";
 import InputDate from "../../shared/components/InputDate";
-import IChangedInputDate, {
-  IInputDateData,
-} from "../../shared/components/InputDate/constants";
+import IChangedInputDate from "../../shared/interfaces/models/inputDate";
 import COMPONENT_STATES from "../../shared/utils/componentStates";
 
 import {

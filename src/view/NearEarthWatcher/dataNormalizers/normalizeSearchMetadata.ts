@@ -1,17 +1,17 @@
 import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
-import { ISearchInterval } from "../SearchCloseObjects";
+import { ISearchInputForm } from "../SearchNearEarthObjects/constants";
 
 export interface ISearchMetadata {
   nearObjectsCount: number;
-  dateIntervalUsed: ISearchInterval;
+  searchInputForm: ISearchInputForm;
 }
 
 export const normalizeSearchMetadata = (
   rawData: IResponseSearchFeed,
-  usedSearchInterval: ISearchInterval
+  usedSearchInterval: ISearchInputForm
 ): ISearchMetadata => ({
   nearObjectsCount: rawData.element_count,
-  dateIntervalUsed: usedSearchInterval,
+  searchInputForm: usedSearchInterval,
 });
 
 export default normalizeSearchMetadata;

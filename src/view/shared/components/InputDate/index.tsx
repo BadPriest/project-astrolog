@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+import IChangedInputDate from "../../interfaces/models/inputDate";
 import { IValidationError } from "../../interfaces/validationError";
 import DateValidator from "../../validators/dateValidator";
 
@@ -13,7 +14,7 @@ export interface IPropsInput {
   name: string;
   label: string;
   placeholder: string;
-  onChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChanged: (inputData: IChangedInputDate) => void;
   value: ReactNode | any;
   disabled: boolean;
   minLength: number;
@@ -33,17 +34,30 @@ function InputDate(props: IPropsInput) {
 
   const [errors, setErrors] = useState<IValidationError[]>([]);
 
-  const validateInput = (inputValue: string) => {
-    const results = DateValidator(inputValue, props);
-    setErrors(() => [...results]);
-  };
-
   const handleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: inputValue } = event.target;
 
-    validateInput(inputValue);
+    const validationErrors: IValidationError[] = DateValidator(
+      inputValue,
+      props
+    );
 
-    onChanged(event);
+    const newInputData = {
+      event,
+      inputStatus: {
+        name,
+        value: {
+          raw: value,
+        },
+        status: {
+          isValid: !validationErrors || !!validationErrors.length === false,
+          errors: validationErrors,
+        },
+      },
+    } as IChangedInputDate;
+
+    setErrors([...validationErrors]);
+    onChanged(newInputData);
   };
 
   return (
