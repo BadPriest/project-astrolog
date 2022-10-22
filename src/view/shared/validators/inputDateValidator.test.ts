@@ -14,6 +14,15 @@ test("Date input accepts only digits", () => {
   expect(actualResult.conformedValue).toBe(expected);
 });
 
+test("Completely empty inputs display no error", () => {
+  const mockInputValue = conformToMask("", DATE_MASK).conformedValue;
+
+  const actualResult = DateValidator(mockInputValue, fixtureInputProps);
+  const expected = [] as IValidationError[];
+
+  expect(actualResult).toEqual(expected);
+});
+
 test("Incomplete inputs receive appropriate error", () => {
   const mockInputValue = conformToMask("01", DATE_MASK).conformedValue;
   const actualResult = DateValidator(mockInputValue, fixtureInputProps);

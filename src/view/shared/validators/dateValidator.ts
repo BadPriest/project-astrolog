@@ -11,7 +11,7 @@ const validateMinLength = (inputValue: string, props: IPropsInput) => {
   const { minLength } = props;
   const unmaskedValue = removeDateInputMask(inputValue);
 
-  const inputIsComplete = unmaskedValue?.length === minLength;
+  const inputIsComplete = !unmaskedValue || unmaskedValue?.length === minLength;
 
   return inputIsComplete
     ? undefined
