@@ -1,4 +1,7 @@
 export interface ISearchInputForm {
-  initialDate?: string;
-  finalDate?: string;
+  isValid: boolean;
+  input: {
+    initialDate?: string;
+    finalDate?: string;
+  };
 }

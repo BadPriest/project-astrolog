@@ -21,11 +21,15 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
 
     const newState = {
       ...searchInputForm,
-      [`${name}`]: value.raw,
+      input: {
+        [`${name}`]: value.raw,
+      },
     } as ISearchInputForm;
 
     setSearchInputForm(newState);
   };
+
+  const shouldDisableButton = state === COMPONENT_STATES.LOADING;
 
   return (
     <>
@@ -35,7 +39,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           placeholder="Input initial date"
           name="initialDate"
           id="initialDate"
-          value={searchInputForm?.initialDate}
+          value={searchInputForm?.input.initialDate}
           onChanged={handleInputChanged}
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
@@ -45,15 +49,20 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           placeholder="Input final date"
           name="finalDate"
           id="finalDate"
-          value={searchInputForm?.finalDate}
+          value={searchInputForm?.input.finalDate}
           onChanged={handleInputChanged}
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
         />
-        <Button type="submit" onClick={() => console.log("hey")}>
+        <Button
+          type="submit"
+          onClick={() => console.log("hey")}
+          disabled={shouldDisableButton}
+        >
           search
         </Button>
       </StyledSearchForm>
+
       <DisplayMetadata />
     </>
   );

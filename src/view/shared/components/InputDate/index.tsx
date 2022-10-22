@@ -50,10 +50,12 @@ function InputDate(props: IPropsInput) {
       inputStatus: {
         name,
         value: {
-          raw: value,
+          raw: inputValue,
         },
         status: {
-          isValid: !validationErrors || !!validationErrors.length === false,
+          isValid:
+            !!inputValue &&
+            (!validationErrors || !!validationErrors.length === false),
           errors: validationErrors,
         },
       },
