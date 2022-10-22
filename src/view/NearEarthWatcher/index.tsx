@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import VSeparator from "../shared/components/VSeparator";
-import SearchCloseObjects from "./SearchCloseObjects";
 
 import { MappedDataAlias } from "./dataNormalizers/normalizeNearEarthObjects";
 import ListCloseObjects from "./ListCloseObjects";
 import StyledTitle from "./styles";
+import SearchNearEarthObjects from "./SearchNearEarthObjects";
 
 function NearEarthWatcher() {
   const [searchResults, setSearchResults] = useState<MappedDataAlias>();
@@ -14,7 +14,7 @@ function NearEarthWatcher() {
     <>
       <StyledTitle>Near Earth Watcher</StyledTitle>
       <VSeparator height=".5rem" />
-      <SearchCloseObjects setResults={setSearchResults} />
+      <SearchNearEarthObjects setSearchResults={setSearchResults} />
       <VSeparator />
       <ListCloseObjects dataSet={searchResults} />
       <VSeparator />
