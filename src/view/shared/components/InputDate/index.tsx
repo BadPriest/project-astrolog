@@ -53,9 +53,7 @@ function InputDate(props: IPropsInput) {
           raw: inputValue,
         },
         status: {
-          isValid:
-            !!inputValue &&
-            (!validationErrors || !!validationErrors.length === false),
+          isValid: !validationErrors || !!validationErrors.length === false,
           errors: validationErrors,
         },
       },

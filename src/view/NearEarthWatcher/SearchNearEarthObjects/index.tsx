@@ -9,27 +9,47 @@ import DisplayMetadata from "../DisplayMetadata";
 
 import StyledSearchForm from "./styles";
 
-import { IPropsSearchNearObjects, DATE_INPUT_MIN_LENGTH } from "./constants";
+import {
+  IPropsSearchNearObjects,
+  DATE_INPUT_MIN_LENGTH,
+  initialStateSearchInputForm,
+} from "./constants";
+import FormDateValidator from "../../shared/validators/formDateValidator";
+import { IValidationError } from "../../shared/interfaces/validationError";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
-  const [searchInputForm, setSearchInputForm] = useState<ISearchInputForm>();
+  const [searchInputForm, setSearchInputForm] = useState<ISearchInputForm>(
+    initialStateSearchInputForm
+  );
 
   const [state, setState] = useState<COMPONENT_STATES>(COMPONENT_STATES.IDLE);
 
+  const validateForm = (formState: ISearchInputForm) => {
+    const validationErrors: IValidationError[] = FormDateValidator(formState);
+
+    return { isValid: !validationErrors?.length, validationErrors };
+  };
+
   const handleInputChanged = (inputData: IChangedInputDate) => {
-    const { name, value } = { ...inputData.inputStatus };
+    const { name } = { ...inputData.inputStatus };
 
     const newState = {
       ...searchInputForm,
       input: {
-        [`${name}`]: value.raw,
+        ...searchInputForm.input,
+        [`${name}`]: inputData.inputStatus,
       },
     } as ISearchInputForm;
 
-    setSearchInputForm(newState);
+    const { isValid, validationErrors } = validateForm(newState);
+    newState.isValid = isValid;
+    newState.errors = validationErrors;
+
+    setSearchInputForm(() => newState);
   };
 
-  const shouldDisableButton = state === COMPONENT_STATES.LOADING;
+  const shouldDisableButton =
+    state === COMPONENT_STATES.LOADING || searchInputForm.isValid === false;
 
   return (
     <>
@@ -39,7 +59,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           placeholder="Input initial date"
           name="initialDate"
           id="initialDate"
-          value={searchInputForm?.input.initialDate}
+          value={searchInputForm?.input?.initialDate?.value.raw}
           onChanged={handleInputChanged}
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
@@ -49,7 +69,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           placeholder="Input final date"
           name="finalDate"
           id="finalDate"
-          value={searchInputForm?.input.finalDate}
+          value={searchInputForm?.input?.finalDate?.value.raw}
           onChanged={handleInputChanged}
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}

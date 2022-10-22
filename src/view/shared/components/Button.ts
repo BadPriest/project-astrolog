@@ -33,8 +33,14 @@ export const Button = styled(ResetButton)`
 
   &:hover {
     color: ${({ theme }) => theme.colors.interactive.textActive};
+    background-color: ${({ theme }) => theme.colors.interactive.surfaceActive};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: ${({ theme }) => theme.colors.interactive.surfaceActive}66;
     background-color: ${({ theme }) =>
-      theme.colors.interactive.surfaceActive};
+      `${theme.colors.danger}${theme.common.opacities.buttonDisabled}`};
   }
 `;
 
@@ -46,8 +52,7 @@ export const ButtonText = styled.span`
 
   &:hover {
     color: ${({ theme }) => theme.colors.interactive.textActive};
-    background-color: ${({ theme }) =>
-      theme.colors.interactive.surfaceActive};
+    background-color: ${({ theme }) => theme.colors.interactive.surfaceActive};
   }
 `;
 
