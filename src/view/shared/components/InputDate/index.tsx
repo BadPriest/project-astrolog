@@ -9,7 +9,7 @@ import { ddMMyyyyInputMask } from "./constants";
 import {
   StyledWrapper,
   StyledMaskedInputDate,
-  StyledErrorWrapper,
+  StyledWrapperError,
 } from "./styles";
 
 export interface IPropsInput {
@@ -79,11 +79,11 @@ function InputDate(props: IPropsInput) {
         minLength={minLength}
       />
       {errors?.length > 0 && (
-        <StyledErrorWrapper>
+        <StyledWrapperError>
           {errors.map((error) => (
             <Text key={error.code}>{error.message}</Text>
           ))}
-        </StyledErrorWrapper>
+        </StyledWrapperError>
       )}
     </StyledWrapper>
   );

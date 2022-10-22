@@ -7,7 +7,7 @@ import InputDate from "../../shared/components/InputDate";
 import IChangedInputDate from "../../shared/interfaces/models/inputDate";
 import DisplayMetadata from "../DisplayMetadata";
 
-import StyledSearchForm from "./styles";
+import StyledSearchForm, { StyledWrapperFormErrors } from "./styles";
 
 import {
   IPropsSearchNearObjects,
@@ -16,6 +16,7 @@ import {
 } from "./constants";
 import FormDateValidator from "../../shared/validators/formDateValidator";
 import { IValidationError } from "../../shared/interfaces/validationError";
+import Text from "../../shared/components/Text";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const [searchInputForm, setSearchInputForm] = useState<ISearchInputForm>(
@@ -42,6 +43,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     } as ISearchInputForm;
 
     const { isValid, validationErrors } = validateForm(newState);
+
     newState.isValid = isValid;
     newState.errors = validationErrors;
 
@@ -82,7 +84,14 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           search
         </Button>
       </StyledSearchForm>
-
+      {!!searchInputForm.errors &&
+        searchInputForm.errors.some((e) => !e.avoidFeedback) && (
+          <StyledWrapperFormErrors>
+            {searchInputForm.errors.map((error) => (
+              <Text key={error.code}>{error.message}</Text>
+            ))}
+          </StyledWrapperFormErrors>
+        )}
       <DisplayMetadata />
     </>
   );
