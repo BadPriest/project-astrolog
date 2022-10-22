@@ -15,6 +15,16 @@ export const ERRORS = {
     INVALID: {
       code: "003",
       message: "FORM_INVALID: Information is not properly arranged.",
+      avoidFeedback: true,
+    } as IValidationError,
+    EMPTY: {
+      code: "004",
+      message: "FORM_EMPTY: Both inputs are empty",
+      avoidFeedback: true,
+    } as IValidationError,
+    IMPOSSIBLE_RANGE: {
+      code: "005",
+      message: "IMPOSSIBLE_RANGE: The final date should come after the initial",
     } as IValidationError,
   },
 };
