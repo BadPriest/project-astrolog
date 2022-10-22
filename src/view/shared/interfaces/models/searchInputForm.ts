@@ -1,7 +1,11 @@
+import { IValidationError } from "../validationError";
+import { IInputDataDate } from "./inputDate";
+
 export interface ISearchInputForm {
   isValid: boolean;
+  errors?: IValidationError[];
   input: {
-    initialDate?: string;
-    finalDate?: string;
+    initialDate: IInputDataDate;
+    finalDate: IInputDataDate;
   };
 }
