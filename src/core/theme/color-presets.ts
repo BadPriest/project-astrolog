@@ -29,7 +29,7 @@ export const main: colorPreset = {
     textActive: "#272727",
   },
   muted: {
-    surface: "#5B5B5B",
+    surface: "#5B5B5B66",
     surfaceActive: "#E7E7E7",
     text: "#E7E7E766",
     textActive: "#272727",

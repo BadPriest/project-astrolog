@@ -28,7 +28,11 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const validateForm = (formState: ISearchInputForm) => {
     const validationErrors: IValidationError[] = FormDateValidator(formState);
 
-    return { isValid: !validationErrors?.length, validationErrors };
+    const currentForm = { ...formState };
+    currentForm.isValid = !validationErrors?.length;
+    currentForm.errors = validationErrors;
+
+    return currentForm;
   };
 
   const handleInputChanged = (inputData: IChangedInputDate) => {
@@ -42,12 +46,13 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       },
     } as ISearchInputForm;
 
-    const { isValid, validationErrors } = validateForm(newState);
+    const updatedForm = validateForm(newState);
 
-    newState.isValid = isValid;
-    newState.errors = validationErrors;
+    setSearchInputForm(() => updatedForm);
+  };
 
-    setSearchInputForm(() => newState);
+  const handleSubmit = () => {
+    setState(() => COMPONENT_STATES.LOADING);
   };
 
   const shouldDisableButton =
@@ -78,7 +83,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
         />
         <Button
           type="submit"
-          onClick={() => console.log("hey")}
+          onClick={handleSubmit}
           disabled={shouldDisableButton}
         >
           search

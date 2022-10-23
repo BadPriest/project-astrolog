@@ -22,6 +22,12 @@ export const BaseInputCSS = css`
     outline: none;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    color: ${({ theme }) => theme.colors.muted.text};
+    background-color: ${({ theme }) => `${theme.colors.muted.surface}`};
+  }
+
   &::placeholder {
     @media screen and (max-width: 40em) {
       font-size: ${({ theme }) => theme.typography.body.regular.fontSize};
