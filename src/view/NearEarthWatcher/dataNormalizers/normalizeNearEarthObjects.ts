@@ -81,12 +81,14 @@ export const normalizeDataSet = (rawData: unknown): MappedDataAlias => {
 
   const normalizedDataSet = {} as MappedDataAlias;
 
-  Object.keys(data).forEach((key) => {
-    const entries = data[key] as Array<IResponseNEO>;
+  Object.keys(data)
+    .sort()
+    .forEach((key) => {
+      const entries = data[key] as Array<IResponseNEO>;
 
-    const normalizedEntries = entries.map(normalizeDataItem);
-    normalizedDataSet[key] = normalizedEntries;
-  });
+      const normalizedEntries = entries.map(normalizeDataItem);
+      normalizedDataSet[key] = normalizedEntries;
+    });
 
   return normalizedDataSet;
 };
