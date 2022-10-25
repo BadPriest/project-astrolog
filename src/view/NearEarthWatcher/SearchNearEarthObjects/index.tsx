@@ -1,10 +1,26 @@
 import React, { useState } from "react";
 
 import COMPONENT_STATES from "../../shared/utils/componentStates";
+import ERRORS from "../../shared/errors";
 import { ISearchInputForm } from "../../shared/interfaces/models/searchInputForm";
-import { Button } from "../../shared/components/Button";
-import InputDate from "../../shared/components/InputDate";
 import IChangedInputDate from "../../shared/interfaces/models/inputDate";
+import { IRangeDate } from "../../shared/interfaces/models/rangeDate";
+import { Button } from "../../shared/components/Button";
+import Text from "../../shared/components/Text";
+import InputDate from "../../shared/components/InputDate";
+import { parseDate } from "../../../utils/parseDates";
+
+import FormDateValidator from "../../shared/validators/formDateValidator";
+import { IValidationError } from "../../shared/interfaces/validationError";
+
+import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
+import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
+
+import normalizeDataSet from "../dataNormalizers/normalizeNearEarthObjects";
+import normalizeSearchMetadata, {
+  ISearchMetadata,
+} from "../dataNormalizers/normalizeSearchMetadata";
+
 import DisplayMetadata from "../DisplayMetadata";
 
 import StyledSearchForm, { StyledWrapperFormErrors } from "./styles";
@@ -14,19 +30,18 @@ import {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
-import FormDateValidator from "../../shared/validators/formDateValidator";
-import { IValidationError } from "../../shared/interfaces/validationError";
-import Text from "../../shared/components/Text";
-import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
-import { parseDate } from "../../../utils/parseDates";
-import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
+  const { setSearchResults } = props;
+
+  const [state, setState] = useState<COMPONENT_STATES>(COMPONENT_STATES.IDLE);
+  const [error, setError] = useState<IValidationError | null>();
+  const [searchMetadata, setSearchMetadata] =
+    useState<ISearchMetadata | null>();
+
   const [searchInputForm, setSearchInputForm] = useState<ISearchInputForm>(
     initialStateSearchInputForm
   );
-
-  const [state, setState] = useState<COMPONENT_STATES>(COMPONENT_STATES.IDLE);
 
   const validateForm = (formState: ISearchInputForm) => {
     const validationErrors: IValidationError[] = FormDateValidator(formState);
@@ -55,7 +70,10 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   };
 
   const handleSubmit = async () => {
-    // setState(() => COMPONENT_STATES.LOADING);
+    setState(() => COMPONENT_STATES.LOADING);
+    setError(() => null);
+    setSearchMetadata(() => null);
+    setSearchResults(() => null);
 
     const { initialDate, finalDate } = handleEmptyInputs(searchInputForm);
     const { parsedInitialDate, parsedFinalDate } = parseDatesToQuery(
@@ -63,14 +81,26 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       finalDate
     );
 
-    const rawData = await fetchNEOData({
+    const rawData: IResponseSearchFeed = await fetchNEOData({
       startDate: parsedInitialDate,
       endDate: parsedFinalDate,
     } as IQueryNEOData);
 
-    console.log("rawData", rawData);
-    // TODO: Display results metadata
-    // TODO: Display results
+    if (!rawData) {
+      setError(ERRORS.DATA.UNEXPECTED);
+      setState(COMPONENT_STATES.HAS_ERROR);
+    }
+
+    const { metadata, data } = processData(rawData, { initialDate, finalDate });
+    if (data && metadata) {
+      setSearchMetadata(metadata);
+      setSearchResults(data);
+
+      setState(COMPONENT_STATES.DATA_LOADED);
+    }
+
+    // TODO: Display errors
+    // TODO: Display feedback for failed requests
   };
 
   const handleEmptyInputs = (
@@ -97,6 +127,15 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     parsedInitialDate: parseDate(initialDate),
     parsedFinalDate: parseDate(finalDate),
   });
+
+  const processData = (
+    rawData: IResponseSearchFeed,
+    originalQueryDateRange: IRangeDate
+  ) => {
+    const metadata = normalizeSearchMetadata(rawData, originalQueryDateRange);
+    const data = normalizeDataSet(rawData);
+    return { metadata, data };
+  };
 
   const shouldDisableButton =
     state === COMPONENT_STATES.LOADING || searchInputForm.isValid === false;
@@ -135,12 +174,14 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       {!!searchInputForm.errors &&
         searchInputForm.errors.some((e) => !e.avoidFeedback) && (
           <StyledWrapperFormErrors>
-            {searchInputForm.errors.map((error) => (
-              <Text key={error.code}>{error.message}</Text>
+            {searchInputForm.errors.map((formError) => (
+              <Text key={formError.code}>{formError.message}</Text>
             ))}
           </StyledWrapperFormErrors>
         )}
-      {state === COMPONENT_STATES.DATA_LOADED && <DisplayMetadata />}
+      {state === COMPONENT_STATES.DATA_LOADED && searchMetadata && (
+        <DisplayMetadata data={searchMetadata} />
+      )}
     </>
   );
 }

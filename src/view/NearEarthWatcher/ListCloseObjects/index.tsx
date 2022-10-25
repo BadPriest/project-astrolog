@@ -1,4 +1,5 @@
 import React from "react";
+import { parseDateForDisplay } from "../../../utils/parseDates";
 import Text from "../../shared/components/Text";
 import { INearEarthObject } from "../../shared/interfaces/models/nearEarthObject";
 import { MappedDataAlias } from "../dataNormalizers/normalizeNearEarthObjects";
@@ -26,12 +27,13 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
 
       return (
         <StyledDayCategory key={key}>
-          <StyledDayLabel>{key}</StyledDayLabel>
+          <StyledDayLabel>{parseDateForDisplay(key)}</StyledDayLabel>
           {entries.map((e: INearEarthObject) => (
             <StyledEntry key={e.id}>
               <Text>
                 Name: {e.name}
-                {e.isPotentiallyHazardousAsteroid && ", [Potentially Hazardous]"}
+                {e.isPotentiallyHazardousAsteroid &&
+                  ", [Potentially Hazardous]"}
                 {e.isSentryObject && " [Sentry Object]"}
               </Text>
               <Text>
