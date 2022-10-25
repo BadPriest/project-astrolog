@@ -17,8 +17,9 @@ const fetchNEOData = async (query: IQueryNEOData) => {
   const { failed, succeeded } = await unpackResults(requestResults);
   const resultsResponses = await extractSuccessfulResponses(succeeded);
   const extractedRawData = await extractData(resultsResponses);
+  const repacked = repack(extractedRawData);
 
-  return extractedRawData;
+  return repacked;
 };
 
 export const getQueryQueue = (originalQuery: IQueryNEOData) => {
@@ -107,7 +108,26 @@ const extractSuccessfulResponses = async (
   successfulData: PromiseFulfilledResult<Response>[]
 ) => successfulData.map((entry) => entry.value);
 
-const extractData = (resultsResponses: Response[]) =>
+const extractData = (
+  resultsResponses: Response[]
+): Promise<IResponseSearchFeed[]> =>
   Promise.all(resultsResponses.map((response) => response.json()));
+
+const repack = (extracted: IResponseSearchFeed[]) => {
+  const repacked = extracted.reduce(
+    (accumulator, current) =>
+      ({
+        links: current.links,
+        element_count: accumulator.element_count + current.element_count,
+        near_earth_objects: {
+          ...accumulator.near_earth_objects,
+          ...current.near_earth_objects,
+        },
+      } as IResponseSearchFeed),
+    { element_count: 0 } as IResponseSearchFeed
+  );
+
+  return repacked;
+};
 
 export default fetchNEOData;
