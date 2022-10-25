@@ -15,7 +15,6 @@ const fetchNEOData = async (query: IQueryNEOData) => {
   const urlQueue = getURLQueue(queryQueue);
   const requestResults = await fetchDataAsParallelRequests(urlQueue);
   const { failed, succeeded } = await unpackResults(requestResults);
-
   const resultsResponses = await extractSuccessfulResponses(succeeded);
   const extractedRawData = await extractData(resultsResponses);
 
@@ -108,15 +107,7 @@ const extractSuccessfulResponses = async (
   successfulData: PromiseFulfilledResult<Response>[]
 ) => successfulData.map((entry) => entry.value);
 
-const extractData = async (resultsResponses: Response[]) => {
-  const extracted = [] as IResponseSearchFeed[];
-
-  resultsResponses.forEach(async (element) => {
-    const data = await element.json();
-    extracted.push(data);
-  });
-
-  return extracted;
-};
+const extractData = (resultsResponses: Response[]) =>
+  Promise.all(resultsResponses.map((response) => response.json()));
 
 export default fetchNEOData;
