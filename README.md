@@ -39,15 +39,21 @@ Non Functional features:
 
 ## Future Work
 
-- Search for NEO's with no date range limitation
-- Tests!
-- Input validation
-- Input error handling
+- ~~Search for NEO's with no date range limitation~~ 
+  - Done, feedback not 100%
+  - Want to let user see ticket usage (even before submitting), which queries failed, etc. 
+- ~~Tests~~ 
+  - there are some, more to come
+- ~~Input validation~~
+  - done
+- ~~Input error handling~~
+  - done
 - Better styles for entries info
 
 ## Nice to haves
 
-- Input masking: users should view dates with their own locale settings
+- ~~Input masking: users should view dates with their own locale settings~~
+  - done
 - Search/filter results: search/filter for specific entries in the list (good to know some of those NEOs are Potentially Hazardous)
 - Infinite/virtual scrolling!
 - Select a given entry and open focused view with more detailed info
@@ -64,7 +70,8 @@ Things deemeed either too effortful or unnecessary for the current purposes.
 ## Known issues
 
 - There's so much magical numbers right now! This is because of exploration. The idea is to minimize/eliminate that.
-- When there's already items on the list, making a new search does not switch states gracefully before replacing the content
+- ~~- When there's already items on the list, making a new search does not switch states gracefully before replacing the content~~
+  - fixed
 - Change convention on folder naming to PascalCase, instead of camelCase (will be more consistent)
 - Use named files instead of `index.tsx`?
 - Responsiveness is not 100% - layout and styles are not as well. 
