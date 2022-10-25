@@ -27,6 +27,12 @@ export const ERRORS = {
       message: "IMPOSSIBLE_RANGE: The final date should come after the initial",
     } as IValidationError,
   },
+  DATA: {
+    UNEXPECTED: {
+      code: "006",
+      message: "UNEXPECTED_DATA: The data is not what we expected. ",
+    } as IValidationError,
+  },
 };
 
 export default ERRORS;
