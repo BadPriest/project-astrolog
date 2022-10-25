@@ -19,6 +19,7 @@ import { IValidationError } from "../../shared/interfaces/validationError";
 import Text from "../../shared/components/Text";
 import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
 import { parseDate } from "../../../utils/parseDates";
+import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const [searchInputForm, setSearchInputForm] = useState<ISearchInputForm>(
@@ -53,8 +54,8 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     setSearchInputForm(() => updatedForm);
   };
 
-  const handleSubmit = () => {
-    setState(() => COMPONENT_STATES.LOADING);
+  const handleSubmit = async () => {
+    // setState(() => COMPONENT_STATES.LOADING);
 
     const { initialDate, finalDate } = handleEmptyInputs(searchInputForm);
     const { parsedInitialDate, parsedFinalDate } = parseDatesToQuery(
@@ -62,11 +63,12 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       finalDate
     );
 
-    const result = fetchNEOData({
+    const rawData = await fetchNEOData({
       startDate: parsedInitialDate,
       endDate: parsedFinalDate,
     } as IQueryNEOData);
 
+    console.log("rawData", rawData);
     // TODO: Display results metadata
     // TODO: Display results
   };
@@ -83,7 +85,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     if (onlyOneInputIsGiven) {
       const onlyDateGiven = dates.filter((date) => !!date)[0];
 
-      // TODO also update form input 
+      // TODO also update form input
       return { initialDate: onlyDateGiven, finalDate: onlyDateGiven };
     }
 
@@ -95,31 +97,6 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     parsedInitialDate: parseDate(initialDate),
     parsedFinalDate: parseDate(finalDate),
   });
-
-  // const parseFormToQuery = (inputForm: ISearchInputForm) => {
-  //   let initialDate = parseDate(inputInitialDate);
-  //   let finalDate;
-
-  //   const inputInitialDate = inputForm.input.initialDate.value.raw;
-  //   if (inputInitialDate) {
-  //     initialDate = parseDate(inputInitialDate);
-  //   }
-
-  //   const inputFinalDate = inputForm.input.finalDate.value.raw;
-  //   if (inputFinalDate) {
-  //     finalDate = parseDate(inputFinalDate);
-  //   }
-
-  //   const dates = [initialDate, finalDate];
-
-  //   // If any date is empty, fill it with
-  //   if (dates.some((date) => !date)) {
-  //     const dateFilled = dates.filter((date) => !!date);
-  //     return dates.map(() => dateFilled);
-  //   }
-
-  //   // return [initialDate, finalDate].map(date => )
-  // };
 
   const shouldDisableButton =
     state === COMPONENT_STATES.LOADING || searchInputForm.isValid === false;
@@ -163,7 +140,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
             ))}
           </StyledWrapperFormErrors>
         )}
-      <DisplayMetadata />
+      {state === COMPONENT_STATES.DATA_LOADED && <DisplayMetadata />}
     </>
   );
 }
