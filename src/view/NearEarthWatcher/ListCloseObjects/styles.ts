@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Text from "../../shared/Text";
 
 export const StyledWrapperResults = styled.div`
   padding: 0 5rem;
@@ -44,6 +45,27 @@ export const StyledDayLabel = styled.h3`
     left: -3%;
     z-index: -2;
   }
+`;
+
+export const StyledWrapperHeaderInfo = styled.header`
+  display: flex;
+  & > div:nth-child(1n) {
+    margin-right: auto;
+  }
+`;
+
+export const StyledInfoRow = styled.div`
+  display: flex;
+  gap: 3rem;
+`;
+
+export const StyledInfoCol = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const StyledSectionHeader = styled(Text)`
+  margin: 0;
 `;
 
 export default StyledWrapperResults;

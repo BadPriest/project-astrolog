@@ -11,7 +11,14 @@ import { parseDateForDisplay } from "../../../utils/parseDates";
 import StyledWrapperResults, {
   StyledDayCategory,
   StyledDayLabel,
+  StyledInfoCol,
+  StyledInfoRow,
+  StyledSectionHeader,
+  StyledWrapperHeaderInfo,
 } from "./styles";
+import DisplayInfo from "../../shared/DisplayInfo";
+import DisplayInfoHero from "../../shared/DisplayInfoHero";
+import VSeparator from "../../shared/VSeparator";
 
 export interface IPropsListCloseObjects {
   dataSet: MappedDataAlias | undefined;
@@ -33,17 +40,54 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
           <StyledDayLabel>{parseDateForDisplay(key)}</StyledDayLabel>
           {entries.map((e: INearEarthObject) => (
             <ListShard key={e.id}>
-              <Text>
-                Name: {e.name}
-                {e.isPotentiallyHazardousAsteroid &&
-                  ", [Potentially Hazardous]"}
-                {e.isSentryObject && " [Sentry Object]"}
-              </Text>
-              <Text>
-                Estimated Diameter (KM) - min:{" "}
-                {e.estimatedDiameter.kilometers.estimatedDiameterMin}, max:{" "}
-                {e.estimatedDiameter.kilometers.estimatedDiameterMax}S
-              </Text>
+              <StyledWrapperHeaderInfo>
+                <DisplayInfoHero label="Name" value={e.name} />
+                {e.isSentryObject && <Text>[Sentry Object]</Text>}
+                {e.isPotentiallyHazardousAsteroid && (
+                  <Text>[Potentially Hazardous]</Text>
+                )}
+              </StyledWrapperHeaderInfo>
+              <VSeparator height="0.5rem" />
+              <StyledInfoRow>
+                <StyledInfoCol>
+                  <StyledSectionHeader>
+                    Latest close approach data
+                  </StyledSectionHeader>
+                  <StyledInfoRow>
+                    <DisplayInfo
+                      label="Orbiting body"
+                      value={e.closeApproachData[0].orbitingBody}
+                    />
+                    <DisplayInfo
+                      label="Date"
+                      value={parseDateForDisplay(e.closeApproachData[0].date)}
+                    />
+                    <DisplayInfo
+                      label="Miss distance (AU)"
+                      value={e.closeApproachData[0].missDistance.astronomical}
+                    />
+                    <DisplayInfo
+                      label="Relative velocity (KM/h)"
+                      value={e.closeApproachData[0].relativeVelocity.kmPerHour}
+                    />
+                  </StyledInfoRow>
+                </StyledInfoCol>
+                <StyledInfoCol>
+                  <StyledSectionHeader>
+                    Diameter estimates (KM)
+                  </StyledSectionHeader>
+                  <StyledInfoRow>
+                    <DisplayInfo
+                      label="Minimum"
+                      value={e.estimatedDiameter.kilometers.estimatedDiameterMin.toString()}
+                    />
+                    <DisplayInfo
+                      label="Maximum"
+                      value={e.estimatedDiameter.kilometers.estimatedDiameterMax.toString()}
+                    />
+                  </StyledInfoRow>
+                </StyledInfoCol>
+              </StyledInfoRow>
             </ListShard>
           ))}
         </StyledDayCategory>
