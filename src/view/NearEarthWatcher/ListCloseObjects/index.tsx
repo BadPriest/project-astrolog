@@ -1,8 +1,11 @@
 import React from "react";
+
+import { INearEarthObject } from "../../../state/models/nearEarthObject";
+import { MappedDataAlias } from "../../../state/models/mappedDataAlias";
+
+import Text from "../../shared/Text";
+
 import { parseDateForDisplay } from "../../../utils/parseDates";
-import Text from "../../shared/components/Text";
-import { INearEarthObject } from "../../shared/interfaces/models/nearEarthObject";
-import { MappedDataAlias } from "../dataNormalizers/normalizeNearEarthObjects";
 
 import StyledWrapperResults, {
   StyledDayCategory,

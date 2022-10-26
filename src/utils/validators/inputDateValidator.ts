@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { isValid, parse } from "date-fns";
-import { IPropsInput } from "../components/InputDate";
+
+import { IPropsInput } from "../../view/shared/InputDate";
+import { IError } from "../../state/models/error";
+
 import ERRORS from "../errors";
-import { IValidationError } from "../interfaces/validationError";
 
 const removeDateInputMask = (maskedInputValue: string) =>
   maskedInputValue.replace(/\D/g, "");
@@ -13,9 +15,7 @@ const validateMinLength = (inputValue: string, props: IPropsInput) => {
 
   const inputIsComplete = !unmaskedValue || unmaskedValue?.length === minLength;
 
-  return inputIsComplete
-    ? undefined
-    : (ERRORS.INPUT.INCOMPLETE as IValidationError);
+  return inputIsComplete ? undefined : (ERRORS.INPUT.INCOMPLETE as IError);
 };
 
 const validateDate = (inputValue: string, props: IPropsInput) => {
@@ -31,23 +31,21 @@ const validateDate = (inputValue: string, props: IPropsInput) => {
     const parsedDate = parse(inputValue, "dd.MM.yyyy", new Date());
     const isValidDate = isValid(parsedDate);
 
-    return isValidDate
-      ? undefined
-      : (ERRORS.INPUT.INVALID_DATE as IValidationError);
+    return isValidDate ? undefined : (ERRORS.INPUT.INVALID_DATE as IError);
   } catch (error) {
-    return ERRORS.INPUT.INVALID_DATE as IValidationError;
+    return ERRORS.INPUT.INVALID_DATE as IError;
   }
 };
 
-export function DateValidator(
+export function InputDateValidator(
   inputValue: string,
   props: IPropsInput,
   validations = [validateMinLength, validateDate]
 ) {
-  const results: IValidationError[] = [];
+  const results: IError[] = [];
 
   validations.forEach((validator) => {
-    const result = validator(inputValue, props) as IValidationError;
+    const result = validator(inputValue, props) as IError;
     if (result) {
       results.push(result);
     }
@@ -56,4 +54,4 @@ export function DateValidator(
   return results;
 }
 
-export default DateValidator;
+export default InputDateValidator;

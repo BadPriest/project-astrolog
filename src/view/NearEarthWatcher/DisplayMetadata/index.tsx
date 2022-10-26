@@ -1,6 +1,7 @@
 import React from "react";
-import Text from "../../shared/components/Text";
-import { ISearchMetadata } from "../dataNormalizers/normalizeSearchMetadata";
+import { ISearchMetadata } from "../../../state/models/searchMetadata";
+import Text from "../../shared/Text";
+
 import { StyledWrapper } from "./styles";
 
 export interface IPropsDisplayMetadata {

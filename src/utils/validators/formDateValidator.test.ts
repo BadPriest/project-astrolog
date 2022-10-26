@@ -1,8 +1,8 @@
-import { IInputDataDate } from "../interfaces/models/inputDate";
-import { ISearchInputForm } from "../interfaces/models/searchInputForm";
-import { IValidationError } from "../interfaces/validationError";
-
+import { IInputDataDate } from "../../state/models/inputDate";
+import { ISearchInputForm } from "../../state/models/searchInputForm";
+import { IError } from "../../state/models/error";
 import ERRORS from "../errors";
+
 import FormDateValidator from "./formDateValidator";
 
 test("Having some input in valid state and none invalid shows no error", () => {
@@ -18,7 +18,7 @@ test("Having some input in valid state and none invalid shows no error", () => {
   } as ISearchInputForm;
 
   const actualResult = FormDateValidator(mockFormValues);
-  const expected = [] as IValidationError[];
+  const expected = [] as IError[];
 
   expect(actualResult).toEqual(expected);
 });
@@ -30,7 +30,7 @@ test("Having both inputs empty invalidates form", () => {
   } as ISearchInputForm;
 
   const actualResult = FormDateValidator(mockFormValues);
-  const expected = [ERRORS.FORM.EMPTY] as IValidationError[];
+  const expected = [ERRORS.FORM.EMPTY] as IError[];
 
   expect(actualResult).toEqual(expected);
 });
@@ -53,7 +53,7 @@ test("Inputs having equal dates should be valid", () => {
   } as ISearchInputForm;
 
   const actualResult = FormDateValidator(mockFormValues);
-  const expected = [] as IValidationError[];
+  const expected = [] as IError[];
 
   expect(actualResult).toEqual(expected);
 });
@@ -76,7 +76,7 @@ test("Having the final date before the initial invalidates form", () => {
   } as ISearchInputForm;
 
   const actualResult = FormDateValidator(mockFormValues);
-  const expected = [ERRORS.FORM.IMPOSSIBLE_RANGE] as IValidationError[];
+  const expected = [ERRORS.FORM.IMPOSSIBLE_RANGE] as IError[];
 
   expect(actualResult).toEqual(expected);
 });

@@ -1,5 +1,6 @@
 import React from "react";
-import { IValidationError } from "../validationError";
+
+import { IError } from "./error";
 
 export interface IInputDataDate {
   name: string;
@@ -9,7 +10,7 @@ export interface IInputDataDate {
   };
   status: {
     isValid?: boolean;
-    errors?: IValidationError[];
+    errors?: IError[];
   };
 }
 

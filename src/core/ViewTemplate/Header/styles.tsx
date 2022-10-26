@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import Text from "../../../view/shared/components/Text";
+import Text from "../../../view/shared/Text";
 
 export const StyledHeaderWrapper = styled.header`
   margin-top: 0.5rem;
-  background-color: ${(props) =>
-    props.theme.colors.interactive.surfaceActive};
+  background-color: ${(props) => props.theme.colors.interactive.surfaceActive};
 
   max-height: 3.5rem;
   display: grid;

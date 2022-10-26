@@ -1,8 +1,10 @@
 import { isBefore, isEqual, parse } from "date-fns";
+
+import { IInputDataDate } from "../../state/models/inputDate";
+import { ISearchInputForm } from "../../state/models/searchInputForm";
+import { IError } from "../../state/models/error";
+
 import ERRORS from "../errors";
-import { IInputDataDate } from "../interfaces/models/inputDate";
-import { ISearchInputForm } from "../interfaces/models/searchInputForm";
-import { IValidationError } from "../interfaces/validationError";
 
 const getInputvalues = (formValue: ISearchInputForm) => {
   const inputValues: IInputDataDate[] = [];
@@ -63,10 +65,10 @@ const validateAllowSingleInput = (formValue: ISearchInputForm) => {
   }
 
   if (formIsEmpty) {
-    return ERRORS.FORM.EMPTY as IValidationError;
+    return ERRORS.FORM.EMPTY as IError;
   }
 
-  return ERRORS.FORM.INVALID as IValidationError;
+  return ERRORS.FORM.INVALID as IError;
 };
 
 export const validateDateRange = (formValue: ISearchInputForm) => {
@@ -91,17 +93,17 @@ export const validateDateRange = (formValue: ISearchInputForm) => {
     isBefore(parsedInitialDate, parsedFinalDate);
   return isFormFilled && isValidRange
     ? undefined
-    : (ERRORS.FORM.IMPOSSIBLE_RANGE as IValidationError);
+    : (ERRORS.FORM.IMPOSSIBLE_RANGE as IError);
 };
 
 export function FormDateValidator(
   formValues: ISearchInputForm,
   validations = [validateAllowSingleInput, validateDateRange]
 ) {
-  const results: IValidationError[] = [];
+  const results: IError[] = [];
 
   validations.forEach((validator) => {
-    const result = validator(formValues) as IValidationError;
+    const result = validator(formValues) as IError;
     if (result) {
       results.push(result);
     }

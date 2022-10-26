@@ -1,10 +1,6 @@
-import {
-  IResponseNEO,
-  IResponseSearchFeed,
-} from "../../shared/interfaces/apiResponses/neoWsFeed";
-import { INearEarthObject } from "../../shared/interfaces/models/nearEarthObject";
-
-export type MappedDataAlias = { [key: string]: INearEarthObject[] };
+import { IResponseNEO, IResponseSearchFeed } from "../models/api/neoWsFeed";
+import { MappedDataAlias } from "../models/mappedDataAlias";
+import { INearEarthObject } from "../models/nearEarthObject";
 
 const normalizeDataItem = (rawData: unknown): INearEarthObject => {
   const data = rawData as IResponseNEO;

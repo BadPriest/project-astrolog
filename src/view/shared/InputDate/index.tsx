@@ -1,16 +1,18 @@
 import React, { ReactNode, useState } from "react";
-import IChangedInputDate from "../../interfaces/models/inputDate";
-import { IValidationError } from "../../interfaces/validationError";
-import DateValidator from "../../validators/dateValidator";
 
 import Label from "../FormControlLabel";
 import Text from "../Text";
-import { ddMMyyyyInputMask } from "./constants";
+
 import {
   StyledWrapper,
   StyledMaskedInputDate,
   StyledWrapperError,
 } from "./styles";
+
+import ddMMyyyyInputMask from "./constants";
+import { IError } from "../../../state/models/error";
+import InputDateValidator from "../../../utils/validators/inputDateValidator";
+import IChangedInputDate from "../../../state/models/inputDate";
 
 export interface IPropsInput {
   id: string;
@@ -35,15 +37,12 @@ function InputDate(props: IPropsInput) {
     minLength = 8,
   } = props;
 
-  const [errors, setErrors] = useState<IValidationError[]>([]);
+  const [errors, setErrors] = useState<IError[]>([]);
 
   const handleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: inputValue } = event.target;
 
-    const validationErrors: IValidationError[] = DateValidator(
-      inputValue,
-      props
-    );
+    const validationErrors: IError[] = InputDateValidator(inputValue, props);
 
     const newInputData = {
       event: { ...event },

@@ -1,5 +1,6 @@
-import { IPropsInput } from "../components/InputDate";
-import ddMMyyyyInputMask from "../components/InputDate/constants";
+import { IPropsInput } from "../../view/shared/InputDate";
+
+import ddMMyyyyInputMask from "../../view/shared/InputDate/constants";
 
 export const DATE_MASK = ddMMyyyyInputMask;
 export const fixtureInputProps = {

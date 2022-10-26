@@ -1,9 +1,10 @@
 import { add, differenceInCalendarDays } from "date-fns";
 
+import { IResponseSearchFeed } from "../state/models/api/neoWsFeed";
+
 import ENDPOINTS from "../core/api/endpoints";
 import parseDateForAPI from "../utils/parseDates";
 import { makeURL } from "../core/api/utils";
-import { IResponseSearchFeed } from "../view/shared/interfaces/apiResponses/neoWsFeed";
 
 export interface IQueryNEOData {
   startDate: Date;

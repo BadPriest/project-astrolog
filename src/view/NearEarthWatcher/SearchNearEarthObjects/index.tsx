@@ -1,41 +1,36 @@
 import React, { useState } from "react";
 
-import COMPONENT_STATES from "../../shared/utils/componentStates";
-import ERRORS from "../../shared/errors";
-import { ISearchInputForm } from "../../shared/interfaces/models/searchInputForm";
-import IChangedInputDate from "../../shared/interfaces/models/inputDate";
-import { IRangeDate } from "../../shared/interfaces/models/rangeDate";
-import { Button } from "../../shared/components/Button";
-import Text from "../../shared/components/Text";
-import InputDate from "../../shared/components/InputDate";
-import { parseDate } from "../../../utils/parseDates";
-
-import FormDateValidator from "../../shared/validators/formDateValidator";
-import { IValidationError } from "../../shared/interfaces/validationError";
-
-import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
-import { IResponseSearchFeed } from "../../shared/interfaces/apiResponses/neoWsFeed";
-
-import normalizeDataSet from "../dataNormalizers/normalizeNearEarthObjects";
-import normalizeSearchMetadata, {
-  ISearchMetadata,
-} from "../dataNormalizers/normalizeSearchMetadata";
+import { IResponseSearchFeed } from "../../../state/models/api/neoWsFeed";
+import COMPONENT_STATES from "../../../state/models/componentStates";
+import IChangedInputDate from "../../../state/models/inputDate";
+import { ISearchInputForm } from "../../../state/models/searchInputForm";
+import { IError } from "../../../state/models/error";
+import { IRangeDate } from "../../../state/models/rangeDate";
 
 import DisplayMetadata from "../DisplayMetadata";
 
-import StyledSearchForm, { StyledWrapperFormErrors } from "./styles";
+import { parseDate } from "../../../utils/parseDates";
+import FormDateValidator from "../../../utils/validators/formDateValidator";
+import normalizeDataSet from "../../../state/normalizers/normalizeNearEarthObjects";
+import normalizeSearchMetadata from "../../../state/normalizers/normalizeSearchMetadata";
+import ERRORS from "../../../utils/errors";
+import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
 
-import {
-  IPropsSearchNearObjects,
+import StyledSearchForm, { StyledWrapperFormErrors } from "./styles";
+import IPropsSearchNearObjects, {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
+import { ISearchMetadata } from "../../../state/models/searchMetadata";
+import InputDate from "../../shared/InputDate";
+import { Button } from "../../shared/Button";
+import Text from "../../shared/Text";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const { setSearchResults } = props;
 
   const [state, setState] = useState<COMPONENT_STATES>(COMPONENT_STATES.IDLE);
-  const [error, setError] = useState<IValidationError | null>();
+  const [error, setError] = useState<IError | null>();
   const [searchMetadata, setSearchMetadata] =
     useState<ISearchMetadata | null>();
 
@@ -44,7 +39,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   );
 
   const validateForm = (formState: ISearchInputForm) => {
-    const validationErrors: IValidationError[] = FormDateValidator(formState);
+    const validationErrors: IError[] = FormDateValidator(formState);
 
     const currentForm = { ...formState };
     currentForm.isValid = !validationErrors?.length;

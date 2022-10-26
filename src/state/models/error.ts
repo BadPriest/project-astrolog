@@ -1,4 +1,4 @@
-export interface IValidationError {
+export interface IError {
   code: string;
   message: string;
   avoidFeedback?: boolean;
