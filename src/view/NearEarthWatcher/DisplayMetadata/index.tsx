@@ -5,11 +5,16 @@ import Text from "../../shared/Text";
 import { StyledWrapper } from "./styles";
 
 export interface IPropsDisplayMetadata {
-  data: ISearchMetadata;
+  data: ISearchMetadata | undefined;
 }
 
 function DisplayMetadata(props: IPropsDisplayMetadata) {
   const { data } = props;
+
+  if (!data) {
+    return null;
+  }
+
   return (
     <StyledWrapper>
       <Text>

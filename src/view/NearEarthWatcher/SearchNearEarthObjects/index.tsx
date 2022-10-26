@@ -7,7 +7,9 @@ import { ISearchInputForm } from "../../../state/models/searchInputForm";
 import { IError } from "../../../state/models/error";
 import { IRangeDate } from "../../../state/models/rangeDate";
 
-import DisplayMetadata from "../DisplayMetadata";
+import { Button } from "../../shared/Button";
+import Text from "../../shared/Text";
+import InputDate from "../../shared/InputDate";
 
 import { parseDate } from "../../../utils/parseDates";
 import FormDateValidator from "../../../utils/validators/formDateValidator";
@@ -21,18 +23,12 @@ import IPropsSearchNearObjects, {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
-import { ISearchMetadata } from "../../../state/models/searchMetadata";
-import InputDate from "../../shared/InputDate";
-import { Button } from "../../shared/Button";
-import Text from "../../shared/Text";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
-  const { setSearchResults } = props;
+  const { setSearchResults, setSearchMetadata } = props;
 
   const [state, setState] = useState<COMPONENT_STATES>(COMPONENT_STATES.IDLE);
   const [error, setError] = useState<IError | null>();
-  const [searchMetadata, setSearchMetadata] =
-    useState<ISearchMetadata | null>();
 
   const [searchInputForm, setSearchInputForm] = useState<ISearchInputForm>(
     initialStateSearchInputForm
@@ -174,9 +170,6 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
             ))}
           </StyledWrapperFormErrors>
         )}
-      {state === COMPONENT_STATES.DATA_LOADED && searchMetadata && (
-        <DisplayMetadata data={searchMetadata} />
-      )}
     </>
   );
 }
