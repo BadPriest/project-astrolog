@@ -29,6 +29,7 @@
   "rules": {
     "no-unused-vars": [1],
     "no-shadow": "off",
+    "react/require-default-props": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "react/jsx-filename-extension": [
       2,
