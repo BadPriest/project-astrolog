@@ -1,7 +1,8 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "./theme";
-import ViewTemplate from "./ViewTemplate";
+
+import ViewTemplate from "../view/ViewTemplate";
 import NearEarthWatcher from "../view/NearEarthWatcher";
 
 function App() {

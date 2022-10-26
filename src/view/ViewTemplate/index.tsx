@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
-import Container from "../../view/shared/Container";
-import VSeparator from "../../view/shared/VSeparator";
+import Container from "../shared/Container";
+import VSeparator from "../shared/VSeparator";
 
 import Header from "./Header";
 import Footer from "./Footer";

@@ -1,5 +1,6 @@
 import React from "react";
-import VSeparator from "../../../view/shared/VSeparator";
+
+import VSeparator from "../../shared/VSeparator";
 
 import { StyledFooter, StyledInfo, StyledInfoHero, StyledLink } from "./styles";
 
