@@ -46,29 +46,4 @@ export const StyledDayLabel = styled.h3`
   }
 `;
 
-export const StyledEntry = styled.article`
-  margin: 0.4rem 0;
-  padding: 0 2rem;
-
-  max-height: 5.5rem;
-  min-width: 60rem;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  background-color: ${(props) => props.theme.colors.interactive.surface};
-
-  transition: 0.2s ease-in;
-
-  &:hover {
-    transform: scale(1.01);
-    color: ${(props) => props.theme.colors.interactive.textActive};
-    background-color: ${(props) =>
-      props.theme.colors.interactive.surfaceActive};
-    transition: ${(props) =>
-        props.theme.animations.surface.activationTransition}
-      ease-out;
-  }
-`;
-
 export default StyledWrapperResults;

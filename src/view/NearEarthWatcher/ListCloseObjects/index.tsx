@@ -4,13 +4,13 @@ import { INearEarthObject } from "../../../state/models/nearEarthObject";
 import { MappedDataAlias } from "../../../state/models/mappedDataAlias";
 
 import Text from "../../shared/Text";
+import ListShard from "../../shared/ListShard";
 
 import { parseDateForDisplay } from "../../../utils/parseDates";
 
 import StyledWrapperResults, {
   StyledDayCategory,
   StyledDayLabel,
-  StyledEntry,
 } from "./styles";
 
 export interface IPropsListCloseObjects {
@@ -32,7 +32,7 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
         <StyledDayCategory key={key}>
           <StyledDayLabel>{parseDateForDisplay(key)}</StyledDayLabel>
           {entries.map((e: INearEarthObject) => (
-            <StyledEntry key={e.id}>
+            <ListShard key={e.id}>
               <Text>
                 Name: {e.name}
                 {e.isPotentiallyHazardousAsteroid &&
@@ -44,7 +44,7 @@ function ListCloseObjects(props: IPropsListCloseObjects) {
                 {e.estimatedDiameter.kilometers.estimatedDiameterMin}, max:{" "}
                 {e.estimatedDiameter.kilometers.estimatedDiameterMax}S
               </Text>
-            </StyledEntry>
+            </ListShard>
           ))}
         </StyledDayCategory>
       );
