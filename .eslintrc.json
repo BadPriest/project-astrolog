@@ -54,6 +54,7 @@
         "variables": false,
         "allowNamedExports": true
       }
-    ]
+    ],
+    "react/jsx-no-useless-fragment": [1, { "allowExpressions": true }]
   }
 }

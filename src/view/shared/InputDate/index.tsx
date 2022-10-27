@@ -1,13 +1,8 @@
 import React, { ReactNode, useState } from "react";
 
 import Label from "../FormControlLabel";
-import Text from "../Text";
 
-import {
-  StyledWrapper,
-  StyledMaskedInputDate,
-  StyledWrapperError,
-} from "./styles";
+import { StyledWrapper, StyledMaskedInputDate } from "./styles";
 
 import ddMMyyyyInputMask from "./constants";
 import { IError } from "../../../state/models/error";
@@ -77,13 +72,6 @@ function InputDate(props: IPropsInput) {
         disabled={disabled}
         minLength={minLength}
       />
-      {errors?.length > 0 && (
-        <StyledWrapperError>
-          {errors.map((error) => (
-            <Text key={error.code}>{error.message}</Text>
-          ))}
-        </StyledWrapperError>
-      )}
     </StyledWrapper>
   );
 }

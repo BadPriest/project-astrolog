@@ -12,7 +12,7 @@ export const ListShard = styled(Reset)`
     `${theme.animations.surface.activationTransition} ease-in`};
 
   margin: 0.4rem 0;
-  padding: 0 2rem;
+  padding: 0 1rem;
   position: relative;
   overflow: hidden;
 

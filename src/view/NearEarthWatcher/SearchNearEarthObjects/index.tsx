@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import { IResponseSearchFeed } from "../../../state/models/api/neoWsFeed";
 import COMPONENT_STATES from "../../../state/models/componentStates";
-import IChangedInputDate from "../../../state/models/inputDate";
+import IChangedInputDate, {
+  IInputDataDate,
+} from "../../../state/models/inputDate";
 import { ISearchInputForm } from "../../../state/models/searchInputForm";
 import { IError } from "../../../state/models/error";
 import { IRangeDate } from "../../../state/models/rangeDate";
@@ -23,6 +25,7 @@ import IPropsSearchNearObjects, {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
+import InputErrorFeedback from "../../shared/Feedback/InputErrorFeedback";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const { setSearchResults, setSearchMetadata } = props;
@@ -144,6 +147,9 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
         />
+        <InputErrorFeedback
+          errors={searchInputForm.input.initialDate?.status?.errors}
+        />
         <InputDate
           label="Final Date"
           placeholder="Input final date"
@@ -153,6 +159,9 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           onChanged={handleInputChanged}
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
+        />
+        <InputErrorFeedback
+          errors={searchInputForm.input.finalDate?.status?.errors}
         />
         <Button
           type="submit"
