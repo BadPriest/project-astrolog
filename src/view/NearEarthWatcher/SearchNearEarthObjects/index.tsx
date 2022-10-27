@@ -2,15 +2,12 @@ import React, { useState } from "react";
 
 import { IResponseSearchFeed } from "../../../state/models/api/neoWsFeed";
 import COMPONENT_STATES from "../../../state/models/componentStates";
-import IChangedInputDate, {
-  IInputDataDate,
-} from "../../../state/models/inputDate";
+import IChangedInputDate from "../../../state/models/inputDate";
 import { ISearchInputForm } from "../../../state/models/searchInputForm";
 import { IError } from "../../../state/models/error";
 import { IRangeDate } from "../../../state/models/rangeDate";
 
 import { Button } from "../../shared/Button";
-import Text from "../../shared/Text";
 import InputDate from "../../shared/InputDate";
 
 import { parseDate } from "../../../utils/parseDates";
@@ -20,12 +17,12 @@ import normalizeSearchMetadata from "../../../state/normalizers/normalizeSearchM
 import ERRORS from "../../../utils/errors";
 import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
 
-import StyledSearchForm, { StyledWrapperFormErrors } from "./styles";
+import StyledSearchForm from "./styles";
 import IPropsSearchNearObjects, {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
-import InputErrorFeedback from "../../shared/Feedback/InputErrorFeedback";
+import FormErrorsFeedback from "../../shared/Feedback/FormErrorsFeedback";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const { setSearchResults, setSearchMetadata } = props;
@@ -147,7 +144,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
         />
-        <InputErrorFeedback
+        <FormErrorsFeedback
           errors={searchInputForm.input.initialDate?.status?.errors}
         />
         <InputDate
@@ -160,7 +157,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
         />
-        <InputErrorFeedback
+        <FormErrorsFeedback
           errors={searchInputForm.input.finalDate?.status?.errors}
         />
         <Button
@@ -171,6 +168,8 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           search
         </Button>
       </StyledSearchForm>
+      <FormErrorsFeedback errors={searchInputForm.errors} />
+      {/* 
       {!!searchInputForm.errors &&
         searchInputForm.errors.some((e) => !e.avoidFeedback) && (
           <StyledWrapperFormErrors>
@@ -178,7 +177,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
               <Text key={formError.code}>{formError.message}</Text>
             ))}
           </StyledWrapperFormErrors>
-        )}
+        )} */}
     </>
   );
 }

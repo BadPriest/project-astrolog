@@ -1,16 +1,15 @@
 import React from "react";
 
 import { IError } from "../../../../state/models/error";
-import { IInputDataDate } from "../../../../state/models/inputDate";
 import Text from "../../Text";
 
 import StyledWrapper from "./styles";
 
-export interface IPropsInputErrorFeedback {
+export interface IPropsFormErrorsFeedback {
   errors: IError[] | undefined;
 }
 
-function InputErrorFeedback(props: IPropsInputErrorFeedback) {
+function FormErrorsFeedback(props: IPropsFormErrorsFeedback) {
   const { errors } = props;
 
   if (!errors) {
@@ -18,11 +17,10 @@ function InputErrorFeedback(props: IPropsInputErrorFeedback) {
   }
 
   const shouldDisplayInputFeedback = () => {
-    const inputHasErrors = !!errors?.length;
-    const inputHasFeedback =
-      inputHasErrors && errors?.some((e) => !e.avoidFeedback);
+    const hasErrors = !!errors?.length;
+    const hasFeedback = hasErrors && errors?.some((e) => !e.avoidFeedback);
 
-    return inputHasFeedback;
+    return hasFeedback;
   };
 
   return (
@@ -40,4 +38,4 @@ function InputErrorFeedback(props: IPropsInputErrorFeedback) {
   );
 }
 
-export default InputErrorFeedback;
+export default FormErrorsFeedback;
