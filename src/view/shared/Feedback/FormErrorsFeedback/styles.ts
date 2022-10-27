@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const StyledWrapper = styled.article`
   padding: 0.4rem;
-  grid-area: "inputFeedback";
 
   font-weight: ${({ theme }) => theme.typography.fontWeights.bold};
 

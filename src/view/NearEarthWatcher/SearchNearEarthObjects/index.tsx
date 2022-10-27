@@ -7,8 +7,8 @@ import { ISearchInputForm } from "../../../state/models/searchInputForm";
 import { IError } from "../../../state/models/error";
 import { IRangeDate } from "../../../state/models/rangeDate";
 
-import { Button } from "../../shared/Button";
 import InputDate from "../../shared/InputDate";
+import FormErrorsFeedback from "../../shared/Feedback/FormErrorsFeedback";
 
 import { parseDate } from "../../../utils/parseDates";
 import FormDateValidator from "../../../utils/validators/formDateValidator";
@@ -17,12 +17,19 @@ import normalizeSearchMetadata from "../../../state/normalizers/normalizeSearchM
 import ERRORS from "../../../utils/errors";
 import fetchNEOData, { IQueryNEOData } from "../../../services/fetchNeoData";
 
-import StyledSearchForm from "./styles";
+import StyledSearchForm, {
+  StyledButton,
+  StyledWrapperFinalDate,
+  StyledWrapperFinalDateFeedback,
+  StyledWrapperFormFeedback,
+  StyledWrapperInitialDate,
+  StyledWrapperInitialDateFeedback,
+} from "./styles";
+
 import IPropsSearchNearObjects, {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
-import FormErrorsFeedback from "../../shared/Feedback/FormErrorsFeedback";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const { setSearchResults, setSearchMetadata } = props;
@@ -132,8 +139,8 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     state === COMPONENT_STATES.LOADING || searchInputForm.isValid === false;
 
   return (
-    <>
-      <StyledSearchForm onSubmit={(e) => e.preventDefault()}>
+    <StyledSearchForm onSubmit={(e) => e.preventDefault()}>
+      <StyledWrapperInitialDate>
         <InputDate
           label="Initial Date"
           placeholder="Input initial date"
@@ -144,9 +151,9 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
         />
-        <FormErrorsFeedback
-          errors={searchInputForm.input.initialDate?.status?.errors}
-        />
+      </StyledWrapperInitialDate>
+
+      <StyledWrapperFinalDate>
         <InputDate
           label="Final Date"
           placeholder="Input final date"
@@ -157,28 +164,30 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
           disabled={state === COMPONENT_STATES.LOADING}
           minLength={DATE_INPUT_MIN_LENGTH}
         />
+      </StyledWrapperFinalDate>
+
+      <StyledButton
+        type="submit"
+        onClick={handleSubmit}
+        disabled={shouldDisableButton}
+      >
+        search
+      </StyledButton>
+
+      <StyledWrapperInitialDateFeedback>
+        <FormErrorsFeedback
+          errors={searchInputForm.input.initialDate?.status?.errors}
+        />
+      </StyledWrapperInitialDateFeedback>
+      <StyledWrapperFinalDateFeedback>
         <FormErrorsFeedback
           errors={searchInputForm.input.finalDate?.status?.errors}
         />
-        <Button
-          type="submit"
-          onClick={handleSubmit}
-          disabled={shouldDisableButton}
-        >
-          search
-        </Button>
-      </StyledSearchForm>
-      <FormErrorsFeedback errors={searchInputForm.errors} />
-      {/* 
-      {!!searchInputForm.errors &&
-        searchInputForm.errors.some((e) => !e.avoidFeedback) && (
-          <StyledWrapperFormErrors>
-            {searchInputForm.errors.map((formError) => (
-              <Text key={formError.code}>{formError.message}</Text>
-            ))}
-          </StyledWrapperFormErrors>
-        )} */}
-    </>
+      </StyledWrapperFinalDateFeedback>
+      <StyledWrapperFormFeedback>
+        <FormErrorsFeedback errors={searchInputForm.errors} />
+      </StyledWrapperFormFeedback>
+    </StyledSearchForm>
   );
 }
 
