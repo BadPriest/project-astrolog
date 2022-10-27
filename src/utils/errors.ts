@@ -26,6 +26,10 @@ export const ERRORS = {
       code: "005",
       message: "IMPOSSIBLE_RANGE: The final date should come after the initial",
     } as IError,
+    EXCEEDED_RANGE: {
+      code: "007",
+      message: "EXCEEDED_RANGE: Date range cannot exceed 180 days at a time",
+    },
   },
   DATA: {
     UNEXPECTED: {

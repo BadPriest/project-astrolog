@@ -80,3 +80,26 @@ test("Having the final date before the initial invalidates form", () => {
 
   expect(actualResult).toEqual(expected);
 });
+
+test("Range cannot exceed 180 days", () => {
+  const mockFormValues = {
+    isValid: true,
+    input: {
+      initialDate: {
+        name: "initialDate",
+        status: { isValid: true, errors: [] },
+        value: { raw: "01.01.1900" },
+      } as IInputDataDate,
+      finalDate: {
+        name: "finalDate",
+        status: { isValid: true, errors: [] },
+        value: { raw: "01.07.1900" },
+      } as IInputDataDate,
+    },
+  } as ISearchInputForm;
+
+  const actualResult = FormDateValidator(mockFormValues);
+  const expected = [ERRORS.FORM.EXCEEDED_RANGE] as IError[];
+
+  expect(actualResult).toEqual(expected);
+});

@@ -1,10 +1,11 @@
-import { isBefore, isEqual, parse } from "date-fns";
+import { differenceInCalendarDays, isBefore, isEqual, parse } from "date-fns";
 
 import { IInputDataDate } from "../../state/models/inputDate";
 import { ISearchInputForm } from "../../state/models/searchInputForm";
 import { IError } from "../../state/models/error";
 
 import ERRORS from "../errors";
+import { DATE_RANGE_MAX_LENGTH_IN_DAYS } from "../../view/NearEarthWatcher/SearchNearEarthObjects/constants";
 
 const getInputvalues = (formValue: ISearchInputForm) => {
   const inputValues: IInputDataDate[] = [];
@@ -45,6 +46,12 @@ const parseDates = (formValue: ISearchInputForm) => {
   return { parsedInitialDate, parsedFinalDate };
 };
 
+const getIsFormFilled = (inputValues: IInputDataDate[]) =>
+  inputValues.every(
+    (input: IInputDataDate) =>
+      input.status.isValid === true && input.value.raw.length > 0
+  );
+
 const validateAllowSingleInput = (formValue: ISearchInputForm) => {
   const inputValues = getInputvalues({ ...formValue });
 
@@ -74,10 +81,7 @@ const validateAllowSingleInput = (formValue: ISearchInputForm) => {
 export const validateDateRange = (formValue: ISearchInputForm) => {
   const inputValues = getInputvalues({ ...formValue });
 
-  const isFormFilled = inputValues.every(
-    (input: IInputDataDate) =>
-      input.status.isValid === true && input.value.raw.length > 0
-  );
+  const isFormFilled = getIsFormFilled(inputValues);
 
   if (!isFormFilled) {
     return undefined;
@@ -91,14 +95,44 @@ export const validateDateRange = (formValue: ISearchInputForm) => {
   const isValidRange =
     isEqual(parsedInitialDate, parsedFinalDate) ||
     isBefore(parsedInitialDate, parsedFinalDate);
+
   return isFormFilled && isValidRange
     ? undefined
     : (ERRORS.FORM.IMPOSSIBLE_RANGE as IError);
 };
 
+const validateArtificialRangeLimit = (formValue: ISearchInputForm) => {
+  const inputValues = getInputvalues({ ...formValue });
+  const isFormFilled = getIsFormFilled(inputValues);
+
+  if (!isFormFilled) {
+    return undefined;
+  }
+
+  const { parsedInitialDate, parsedFinalDate } = parseDates(formValue);
+  if (!parsedInitialDate || !parsedFinalDate) {
+    return undefined;
+  }
+
+  const diffInDays = differenceInCalendarDays(
+    parsedFinalDate,
+    parsedInitialDate
+  );
+
+  const isWithinValidRange = diffInDays < DATE_RANGE_MAX_LENGTH_IN_DAYS;
+
+  return isFormFilled && isWithinValidRange
+    ? undefined
+    : (ERRORS.FORM.EXCEEDED_RANGE as IError);
+};
+
 export function FormDateValidator(
   formValues: ISearchInputForm,
-  validations = [validateAllowSingleInput, validateDateRange]
+  validations = [
+    validateAllowSingleInput,
+    validateDateRange,
+    validateArtificialRangeLimit,
+  ]
 ) {
   const results: IError[] = [];
 

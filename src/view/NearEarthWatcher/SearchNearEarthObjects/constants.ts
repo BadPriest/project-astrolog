@@ -1,8 +1,8 @@
 import React from "react";
 import { ISearchInputForm } from "../../../state/models/searchInputForm";
-import { ISearchMetadata } from "../../../state/models/searchMetadata";
 
 export const DATE_INPUT_MIN_LENGTH = 8;
+export const DATE_RANGE_MAX_LENGTH_IN_DAYS = 180;
 
 export const initialStateSearchInputForm = {
   isValid: false,
