@@ -142,6 +142,26 @@ npm start
 
 <br/>
 
+## Running tests
+
+To run all tests, go to the root folder and run:
+
+```
+npm test
+```
+
+Alternatively, you could pass a filename as the second parameter. That would execute only the files it finds in the given folder.
+
+```
+npm test fetchNeoData
+```
+
+or even
+
+```
+npm test src\utils\*
+```
+
 ## Author
 
 **Bruno Vinicius Vergatti** - [LinkedIn](https://www.linkedin.com/in/bruno-vergatti/)
