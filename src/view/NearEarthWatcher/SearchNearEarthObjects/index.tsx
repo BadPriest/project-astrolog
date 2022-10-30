@@ -32,7 +32,7 @@ import IPropsSearchNearObjects, {
 } from "./constants";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
-  const { setSearchResults, setSearchMetadata } = props;
+  const { setSearchResults, setSearchMetadata, setErrorMetadata } = props;
 
   const [state, setState] = useState<COMPONENT_STATES>(COMPONENT_STATES.IDLE);
   const [error, setError] = useState<IError | null>();
@@ -71,6 +71,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     setState(() => COMPONENT_STATES.LOADING);
     setError(() => null);
     setSearchMetadata(() => null);
+    setErrorMetadata(() => null);
     setSearchResults(() => null);
 
     const { initialDate, finalDate } = handleEmptyInputs(searchInputForm);
@@ -84,26 +85,41 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       endDate: parsedFinalDate,
     } as IQueryNEOData);
 
-    if (!successfulData) {
+    if (!successfulData && !failedData) {
       setError(ERRORS.DATA.UNEXPECTED);
       setState(COMPONENT_STATES.HAS_ERROR);
     }
 
-    console.log("failedData", failedData);
+    let successfulDataProcessed = false;
+    let errorDataProcessed = false;
 
-    const { metadata, data } = processData(successfulData, {
-      initialDate,
-      finalDate,
-    });
-    if (data && metadata) {
-      setSearchMetadata(metadata);
-      setSearchResults(data);
+    if (successfulData?.element_count) {
+      const { metadata, data } = processSuccessfulData(successfulData, {
+        initialDate,
+        finalDate,
+      });
 
-      setState(COMPONENT_STATES.DATA_LOADED);
+      if (data) {
+        setSearchResults(data);
+      }
+
+      if (metadata) {
+        setSearchMetadata(metadata);
+      }
+
+      if (data && metadata) {
+        successfulDataProcessed = true;
+      }
     }
 
-    // TODO: Display errors
-    // TODO: Display feedback for failed requests
+    if (failedData) {
+      setErrorMetadata(failedData);
+      errorDataProcessed = true;
+    }
+
+    if (successfulDataProcessed || errorDataProcessed) {
+      setState(COMPONENT_STATES.DATA_LOADED);
+    }
   };
 
   const handleEmptyInputs = (
@@ -131,7 +147,7 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     parsedFinalDate: parseDate(finalDate),
   });
 
-  const processData = (
+  const processSuccessfulData = (
     rawData: IResponseSearchFeed,
     originalQueryDateRange: IRangeDate
   ) => {
