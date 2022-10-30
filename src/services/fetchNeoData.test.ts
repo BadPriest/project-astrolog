@@ -1,4 +1,4 @@
-import { getQueryQueue, IQueryNEOData } from "../services/fetchNeoData";
+import { getQueryQueue, IQueryNEOData } from "./fetchNeoData";
 
 test("A range within 7 days should return a single item in request queue", () => {
   const mockQuery = {
