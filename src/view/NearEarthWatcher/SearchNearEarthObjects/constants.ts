@@ -11,10 +11,12 @@ export const initialStateSearchInputForm = {
 
 type ReactDispatchAlias = React.Dispatch<React.SetStateAction<any>>;
 export type SearchResults = ReactDispatchAlias;
-export type MetadataResults = ReactDispatchAlias;
+export type SearchMetadataResults = ReactDispatchAlias;
+export type ErrorMetadataResults = ReactDispatchAlias;
 export interface IPropsSearchNearObjects {
   setSearchResults: SearchResults;
-  setSearchMetadata: MetadataResults;
+  setSearchMetadata: SearchMetadataResults;
+  setErrorMetadata: ErrorMetadataResults;
 }
 
 export default IPropsSearchNearObjects;
