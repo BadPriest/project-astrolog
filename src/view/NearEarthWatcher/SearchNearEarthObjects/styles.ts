@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button } from "../../shared/Button";
+import FeedbackDataLoading from "../../shared/Feedback/DataLoading";
 
 export const StyledSearchForm = styled.form`
   display: grid;
@@ -8,7 +9,7 @@ export const StyledSearchForm = styled.form`
   grid-template-columns: 1fr 1fr 0.2fr 1fr;
   grid-template-areas:
     "initialDate finalDate . submit"
-    "initialDateFeedback finalDateFeedback . ."
+    "initialDateFeedback finalDateFeedback . submitFeedback"
     "formFeedback formFeedback . . ";
 `;
 
@@ -32,6 +33,10 @@ export const StyledWrapperFormFeedback = styled.div`
 export const StyledButton = styled(Button)`
   grid-area: submit;
   align-self: end;
+`;
+
+export const StyledWrapperSubmitFeedback = styled.div`
+  grid-area: submitFeedback;
 `;
 
 export default StyledSearchForm;

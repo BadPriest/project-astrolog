@@ -24,12 +24,14 @@ import StyledSearchForm, {
   StyledWrapperFormFeedback,
   StyledWrapperInitialDate,
   StyledWrapperInitialDateFeedback,
+  StyledWrapperSubmitFeedback,
 } from "./styles";
 
 import IPropsSearchNearObjects, {
   DATE_INPUT_MIN_LENGTH,
   initialStateSearchInputForm,
 } from "./constants";
+import FeedbackDataLoading from "../../shared/Feedback/DataLoading";
 
 function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
   const { setSearchResults, setSearchMetadata, setErrorMetadata } = props;
@@ -194,6 +196,12 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       >
         search
       </StyledButton>
+
+      {state === COMPONENT_STATES.LOADING && (
+        <StyledWrapperSubmitFeedback>
+          <FeedbackDataLoading />
+        </StyledWrapperSubmitFeedback>
+      )}
 
       <StyledWrapperInitialDateFeedback>
         <FormErrorsFeedback
