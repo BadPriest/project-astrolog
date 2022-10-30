@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Text from "../../../view/shared/Text";
+import Text from "../../shared/Text";
 
 export const StyledHeaderWrapper = styled.header`
   margin-top: 0.5rem;

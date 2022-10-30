@@ -34,9 +34,19 @@ export const ERRORS = {
   DATA: {
     UNEXPECTED: {
       code: "006",
-      message: "UNEXPECTED_DATA: The data is not what we expected. ",
+      message: "UNEXPECTED_DATA: The data is not what we expected",
     } as IError,
   },
+  REQUEST: { 
+    UNEXPECTED_RESPONSE: {
+      code: "008",
+      message: 'UNEXPECTED_RESPONSE: Server unswer in an unexpected manner'
+    } as IError,
+    EXCEEDED_API_USAGE: {
+      code: '009',
+      message: 'EXCEEDED_API_USAGE: Data access expired due to excessive usage. Please try again later'
+     } as IError,
+  }
 };
 
 export default ERRORS;

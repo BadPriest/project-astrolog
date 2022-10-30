@@ -79,17 +79,22 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       finalDate
     );
 
-    const rawData: IResponseSearchFeed = await fetchNEOData({
+    const { failedData, successfulData } = await fetchNEOData({
       startDate: parsedInitialDate,
       endDate: parsedFinalDate,
     } as IQueryNEOData);
 
-    if (!rawData) {
+    if (!successfulData) {
       setError(ERRORS.DATA.UNEXPECTED);
       setState(COMPONENT_STATES.HAS_ERROR);
     }
 
-    const { metadata, data } = processData(rawData, { initialDate, finalDate });
+    console.log("failedData", failedData);
+
+    const { metadata, data } = processData(successfulData, {
+      initialDate,
+      finalDate,
+    });
     if (data && metadata) {
       setSearchMetadata(metadata);
       setSearchResults(data);
