@@ -2,21 +2,13 @@
 
 This project allows search and visualization of Near-Earth Objects' historical info & details through NASA's APIs.
 
-### Disclaimer
-
-This is a work in progress and as such is subject to sudden and unexpected changes. The code has been created mostly in exploratory fashion, being iterated upon. There are no tests at the moment, though they are intended.
-
-This represents roughly and effectively 8 ~ 12h of work on research, exploration and implementation.
-
 <br/>
 
 ## Summary
 
 - [Features](#features)
 - [Future Work](#future-work)
-- [Nice to haves](#nice-to-haves)
-- [What's not planned](#whats-not-planned)
-- [Known issues](#known-issues)
+- [Technologies](#technologies)
 - [Project Structure](#project-structure)
 - [Requirements](#requirements)
 - [Cloning Instructions](#cloning-instructions)
@@ -27,9 +19,11 @@ This represents roughly and effectively 8 ~ 12h of work on research, exploration
 
 ## Features
 
-- Search for Near Earth Objects' within API's date range (7 days)
-  - Either local mock file or live API with DEMO_KEY
-- Lists NEO's data
+- Search for Near Earth Objects'
+  - limited to queries ranging up to 180 days
+- Lists NEOs' data
+- Displays request error & search feedbacks
+- Displays feedback regarding API tickets spent
 
 Non Functional features:
 
@@ -39,45 +33,34 @@ Non Functional features:
 
 ## Future Work
 
-- ~~Search for NEO's with no date range limitation~~ 
-  - Done, feedback not 100%
-  - Want to let user see ticket usage (even before submitting), which queries failed, etc. 
-- ~~Tests~~ 
-  - there are some, more to come
-- ~~Input validation~~
-  - done
-- ~~Input error handling~~
-  - done
-- Better styles for entries info
+- Would be nice to provide user with alternative for boundless queries.
+  - Webworkers with staggered requests could be employed to serve a large data amount on a budget
+- Expand test coverage, especially on service layer
+- Refactors for readability, better represent and unify types/modelling
+- Implement performance-oriented changes
 
-## Nice to haves
+## Technologies
 
-- ~~Input masking: users should view dates with their own locale settings~~
-  - done
-- Search/filter results: search/filter for specific entries in the list (good to know some of those NEOs are Potentially Hazardous)
-- Infinite/virtual scrolling!
-- Select a given entry and open focused view with more detailed info
-- Some search caching
+### [React](https://reactjs.org/)
 
-## What's not planned
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-Things deemeed either too effortful or unnecessary for the current purposes.
+- [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 
-- Comprehensive centralized API error handling (effort)
-- State handling (will try to avoid as much as possible having state)
-- Pagination
+### Styling
 
-## Known issues
+- [Styled Components](https://styled-components.com/)
 
-- There's so much magical numbers right now! This is because of exploration. The idea is to minimize/eliminate that.
-- ~~- When there's already items on the list, making a new search does not switch states gracefully before replacing the content~~
-  - fixed
-- Change convention on folder naming to PascalCase, instead of camelCase (will be more consistent)
-- Use named files instead of `index.tsx`?
-- Responsiveness is not 100% - layout and styles are not as well. 
-<br/>
+### Testing
 
----
+- [Jest](https://jestjs.io/)
+
+### Project Support
+
+- Linter: [ESLint](https://eslint.org/)
+- Formatter: [Prettier](https://prettier.io/)
+
+<br/><br/>
 
 ## Project Structure
 
@@ -86,25 +69,30 @@ The following presents a scalable concept for a React application:
 ```
 project-astrolog
     └── src
+        ├── assets
+        │     └── Fonts
+        │     └── Icons
         ├── core
         │     ├── api
         │     │    └── endpoints, utils & constants
         │     ├── theme
         │     │    └── color presets
         │     │    └── theming component
-        │     ├── ViewTemplate
         │     │    └── Header, Content & Footer structures
-        │     └── App.tsx
+        │     ├── App.tsx
         │     └── App.test.tsx
+        ├── services
+        │     └── data IO layer
+        ├── state
+        │     ├──  models
+        │     └──  data normalizers
+        ├── utils
+        │     ├──  data/input validators
+        │     └──  data parsers
         ├── view
         │     ├── Feature/Business Components
-        │     └── Shared/Generic Components & Interfaces
-        ├── assets
-        │     └── Fonts
-        │     └── Icons
-        ├── utils (future)
-        │     ├── TestFixtures
-        │     └── utility functions (parsers, sorters, etc)
+        │     ├── Shared/Generic Components & functions
+        │     └── ViewTemplate
         ├── index.css
         └── index.tsx
 ```
