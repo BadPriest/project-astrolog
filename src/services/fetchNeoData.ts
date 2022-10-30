@@ -18,7 +18,12 @@ interface IFailedResponsesPackage {
   data: { url?: URL; originalAPIResponse?: Response; rawData?: any };
 }
 
-type FailedDataPackage = { [key: string]: any };
+export type FailedDataPackage = {
+  [key: string]: {
+    error: IError;
+    failedQueries: { startDate: any; endDate: any; originalData: any }[];
+  };
+};
 
 interface IFetchNEODataPackagedData {
   successfulData: IResponseSearchFeed;
@@ -193,20 +198,28 @@ const repackFailData = (failures: IFailedResponsesPackage[]) => {
   const repacked = failures.reduce((accumulator, current) => {
     const urlSearch = current.data.url?.search || "";
 
-    const key = current.error.code;
+    const key =
+      current.data.originalAPIResponse?.status.toString() || current.error.code;
+
     let [startDate, endDate] = urlSearch.split("&");
     startDate = startDate.split("=").pop() || "--";
     endDate = endDate.split("=").pop() || "--";
 
-    accumulator[key] = [
-      ...(accumulator[key] || []),
-      {
-        startDate: parseDateForDisplay(startDate),
-        endDate: parseDateForDisplay(endDate),
-        error: current.error,
-        data: current.data.originalAPIResponse,
+    const accumulatedFailedQueries = accumulator[key]?.failedQueries || [];
+    accumulator[key] = {
+      ...accumulator[key],
+      ...{
+        error: current.error as IError,
+        failedQueries: [
+          ...accumulatedFailedQueries,
+          {
+            startDate: parseDateForDisplay(startDate),
+            endDate: parseDateForDisplay(endDate),
+            originalData: current.data.originalAPIResponse,
+          },
+        ],
       },
-    ] as FailedDataPackage;
+    };
 
     return accumulator;
   }, {} as FailedDataPackage);
@@ -219,13 +232,13 @@ const repackSuccessful = (extracted: IResponseSearchFeed[]) => {
     (accumulator, current) =>
       ({
         links: current.links,
-        element_count: accumulator.element_count + current.element_count,
+        element_count: (accumulator.element_count || 0) + current.element_count,
         near_earth_objects: {
           ...accumulator.near_earth_objects,
           ...current.near_earth_objects,
         },
       } as IResponseSearchFeed),
-    { element_count: 0 } as IResponseSearchFeed
+    {} as IResponseSearchFeed
   );
 
   return repacked;
