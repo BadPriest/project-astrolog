@@ -30,7 +30,7 @@ export const StyledErrorBody = styled.div`
 `;
 
 export const StyledErrorList = styled.div`
-  max-height: 22rem;
+  max-height: 15rem;
 
   overflow-y: auto;
   overflow-x: hidden;

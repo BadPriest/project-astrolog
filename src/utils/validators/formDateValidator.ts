@@ -119,7 +119,7 @@ const validateArtificialRangeLimit = (formValue: ISearchInputForm) => {
     parsedInitialDate
   );
 
-  const isWithinValidRange = diffInDays < DATE_RANGE_MAX_LENGTH_IN_DAYS;
+  const isWithinValidRange = diffInDays <= DATE_RANGE_MAX_LENGTH_IN_DAYS;
 
   return isFormFilled && isWithinValidRange
     ? undefined

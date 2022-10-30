@@ -17,7 +17,7 @@ export interface IPropsErrorMetadata {
 function ErrorMetadata(props: IPropsErrorMetadata) {
   const { data } = props;
 
-  if (!data || !data.error) {
+  if (!data || !Object.keys(data).length) {
     return null;
   }
 
