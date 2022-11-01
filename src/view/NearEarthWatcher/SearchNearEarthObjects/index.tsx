@@ -92,24 +92,25 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       setState(COMPONENT_STATES.HAS_ERROR);
     }
 
+    let searchMetadataProcessed = false;
     let successfulDataProcessed = false;
     let errorDataProcessed = false;
 
-    if (successfulData?.element_count) {
-      const { metadata, data } = processSuccessfulData(successfulData, {
-        initialDate,
-        finalDate,
-      });
+    const metadata = normalizeSearchMetadata(successfulData, {
+      initialDate,
+      finalDate,
+    });
 
+    setSearchMetadata(metadata);
+    searchMetadataProcessed = true;
+
+    if (successfulData?.element_count) {
+      const data = normalizeDataSet(successfulData);
       if (data) {
         setSearchResults(data);
       }
 
-      if (metadata) {
-        setSearchMetadata(metadata);
-      }
-
-      if (data && metadata) {
+      if (data) {
         successfulDataProcessed = true;
       }
     }
@@ -119,7 +120,11 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
       errorDataProcessed = true;
     }
 
-    if (successfulDataProcessed || errorDataProcessed) {
+    if (
+      searchMetadataProcessed ||
+      successfulDataProcessed ||
+      errorDataProcessed
+    ) {
       setState(COMPONENT_STATES.DATA_LOADED);
     }
   };
@@ -148,15 +153,6 @@ function SearchNearEarthObjects(props: IPropsSearchNearObjects) {
     parsedInitialDate: parseDate(initialDate),
     parsedFinalDate: parseDate(finalDate),
   });
-
-  const processSuccessfulData = (
-    rawData: IResponseSearchFeed,
-    originalQueryDateRange: IRangeDate
-  ) => {
-    const metadata = normalizeSearchMetadata(rawData, originalQueryDateRange);
-    const data = normalizeDataSet(rawData);
-    return { metadata, data };
-  };
 
   const shouldDisableButton =
     state === COMPONENT_STATES.LOADING || searchInputForm.isValid === false;
