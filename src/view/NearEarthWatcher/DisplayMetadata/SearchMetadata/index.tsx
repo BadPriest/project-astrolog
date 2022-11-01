@@ -29,7 +29,7 @@ function SearchMetadata(props: IPropsSearchMetadata) {
     parsedInitialDate
   );
 
-  const ticketCount = (diffInDays / 7 - 1).toFixed(0);
+  const ticketCount = diffInDays > 7 ? Math.ceil(diffInDays / 7) : 1;
 
   return (
     <StyledWrapper>
