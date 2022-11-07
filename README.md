@@ -78,9 +78,7 @@ project-astrolog
         │     ├── theme
         │     │    └── color presets
         │     │    └── theming component
-        │     │    └── Header, Content & Footer structures
         │     ├── App.tsx
-        │     └── App.test.tsx
         ├── services
         │     └── data IO layer
         ├── state
