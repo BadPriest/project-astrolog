@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Text from "../../../shared/Text";
+import styled from 'styled-components';
+import Text from '../../../shared/Text';
 
 export const StyledWrapper = styled.div`
   padding: 1rem;
@@ -43,7 +43,7 @@ export const StyledErrorEntry = styled(Text)`
   padding: 0.6rem;
   margin: 0;
 
-  & > strong {
+  & strong {
     font-family: ${(props) => props.theme.typography.special.fontFamily};
   }
 

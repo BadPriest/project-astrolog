@@ -1,10 +1,11 @@
-import { differenceInCalendarDays } from "date-fns";
-import React from "react";
-import { ISearchMetadata } from "../../../../state/models/searchMetadata";
-import { parseDate } from "../../../../utils/parseDates";
-import Text from "../../../shared/Text";
+import React from 'react';
+import { differenceInCalendarDays } from 'date-fns';
 
-import { StyledFeedbackHeader, StyledWrapper } from "./styles";
+import { ISearchMetadata } from '../../../../state/models/searchMetadata';
+import { parseDate } from '../../../../utils/parseDates';
+import Text from '../../../shared/Text';
+
+import { StyledFeedbackHeader, StyledWrapper } from './styles';
 
 export interface IPropsSearchMetadata {
   data: ISearchMetadata | undefined;
@@ -35,11 +36,18 @@ function SearchMetadata(props: IPropsSearchMetadata) {
     <StyledWrapper>
       <StyledFeedbackHeader>
         <Text>
-          Found {data?.nearObjectsCount} entries for the given period: {"  "}[
-          {`${data?.originalQueryDateRange.initialDate} ~ ${data?.originalQueryDateRange.finalDate}`}
+          Found <strong>{data?.nearObjectsCount || 0}</strong> entries for the
+          given period: {'  '}[
+          <strong>
+            {`${data?.originalQueryDateRange.initialDate} ~ ${data?.originalQueryDateRange.finalDate}`}
+          </strong>
           ]
         </Text>
-        <Text>[API Tickets used: {ticketCount}]</Text>
+        {!!data?.nearObjectsCount && (
+          <Text>
+            [API Tickets used: <strong>{ticketCount}</strong>]
+          </Text>
+        )}
       </StyledFeedbackHeader>
     </StyledWrapper>
   );
